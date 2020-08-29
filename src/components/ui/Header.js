@@ -87,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerItem: {
     ...theme.typography.tab,
+    opacity: 0.7,
+  },
+  activeDrawerItem: {
+    ...theme.typography.tab,
+    opacity: 1,
   },
   drawerItemEmphasised: {
     backgroundColor: theme.palette.primary.main,
@@ -295,7 +300,9 @@ const Header = (props) => {
           component={Link}
           to="/about"
           onClick={() => setOpenMenu(!openMenu)}
-          className={classes.drawerItem}
+          className={
+            tabValue === 0 ? classes.activeDrawerItem : classes.drawerItem
+          }
           selected={tabValue === 0}
         >
           <ListItemIcon>
@@ -311,7 +318,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/aboutus"
-              className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+              className={`${classes.nestedDrawer} ${
+                menuSelectedIndex === 0
+                  ? classes.activeDrawerItem
+                  : classes.drawerItem
+              }`}
               selected={menuSelectedIndex === 0 && tabValue === 0}
               onClick={() => {
                 setOpenMenu(false);
@@ -330,7 +341,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/faqs"
-              className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+              className={`${classes.nestedDrawer} ${
+                menuSelectedIndex === 1
+                  ? classes.activeDrawerItem
+                  : classes.drawerItem
+              }`}
               selected={menuSelectedIndex === 1 && tabValue === 0}
               onClick={() => {
                 setOpenMenu(false);
@@ -349,7 +364,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/comingsoon"
-              className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+              className={`${classes.nestedDrawer} ${
+                menuSelectedIndex === 2
+                  ? classes.activeDrawerItem
+                  : classes.drawerItem
+              }`}
               selected={menuSelectedIndex === 2 && tabValue === 0}
               onClick={() => {
                 setOpenMenu(false);
@@ -375,8 +394,11 @@ const Header = (props) => {
             setOpenMenu(false);
             setDrawerOpen(false);
             setTabValue(1);
+            setMenuSelectedIndex(false);
           }}
-          className={classes.drawerItem}
+          className={
+            tabValue === 1 ? classes.activeDrawerItem : classes.drawerItem
+          }
         >
           <ListItemIcon>
             <StorefrontIcon />
@@ -393,8 +415,11 @@ const Header = (props) => {
             setOpenMenu(false);
             setDrawerOpen(false);
             setTabValue(2);
+            setMenuSelectedIndex(false);
           }}
-          className={classes.drawerItem}
+          className={
+            tabValue === 2 ? classes.activeDrawerItem : classes.drawerItem
+          }
         >
           <ListItemIcon>
             <GroupWorkIcon />
@@ -411,8 +436,11 @@ const Header = (props) => {
             setOpenMenu(false);
             setDrawerOpen(false);
             setTabValue(3);
+            setMenuSelectedIndex(false);
           }}
-          className={classes.drawerItem}
+          className={
+            tabValue === 3 ? classes.activeDrawerItem : classes.drawerItem
+          }
         >
           <ListItemIcon>
             <HelpIcon />
@@ -429,8 +457,11 @@ const Header = (props) => {
             setOpenMenu(false);
             setDrawerOpen(false);
             setTabValue(4);
+            setMenuSelectedIndex(false);
           }}
-          className={classes.drawerItem}
+          className={
+            tabValue === 4 ? classes.activeDrawerItem : classes.drawerItem
+          }
         >
           <ListItemIcon>
             <ContactMailIcon />
