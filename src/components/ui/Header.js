@@ -87,6 +87,9 @@ const useStyles = makeStyles((theme) => ({
   drawerItem: {
     ...theme.typography.tab,
   },
+  drawerItemEmphasised: {
+    backgroundColor: theme.palette.primary.main,
+  },
   burgerButton: {
     marginLeft: "auto",
   },
@@ -277,32 +280,6 @@ const Header = (props) => {
           divider
           button
           component={Link}
-          to="/login"
-          onClick={() => setDrawerOpen(false)}
-          className={classes.drawerItem}
-        >
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="login" />
-        </ListItem>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/register"
-          onClick={() => setDrawerOpen(false)}
-          className={classes.drawerItem}
-        >
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="sign up" />
-        </ListItem>
-        <ListItem
-          divider
-          button
-          component={Link}
           to="/about"
           onClick={() => setOpenMenu(!openMenu)}
           className={classes.drawerItem}
@@ -398,6 +375,32 @@ const Header = (props) => {
             <ContactMailIcon />
           </ListItemIcon>
           <ListItemText disableTypography primary="contact us" />
+        </ListItem>
+        <ListItem
+          divider
+          button
+          component={Link}
+          to="/login"
+          onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
+        >
+          <ListItemIcon>
+            <PersonIcon />
+          </ListItemIcon>
+          <ListItemText disableTypography primary="login" />
+        </ListItem>
+        <ListItem
+          divider
+          button
+          component={Link}
+          to="/register"
+          onClick={() => setDrawerOpen(false)}
+          className={[classes.drawerItem, classes.drawerItemEmphasised]}
+        >
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText disableTypography primary="sign up" />
         </ListItem>
       </List>
     </SwipeableDrawer>
