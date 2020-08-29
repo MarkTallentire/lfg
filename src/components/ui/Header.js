@@ -480,7 +480,7 @@ const Header = (props) => {
             setDrawerOpen(false);
             setOpenMenu(false);
           }}
-          className={`${classes.drawerItem}`}
+          className={`${classes.activeDrawerItem}`}
         >
           <ListItemIcon>
             <PersonIcon />
@@ -497,7 +497,7 @@ const Header = (props) => {
             setDrawerOpen(false);
             setOpenMenu(false);
           }}
-          className={`${classes.drawerItem} ${classes.drawerItemEmphasised}`}
+          className={`${classes.activeDrawerItem} ${classes.drawerItemEmphasised}`}
         >
           <ListItemIcon>
             <ExitToAppIcon />
