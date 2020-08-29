@@ -133,12 +133,12 @@ const Header = (props) => {
       icon: <InfoIcon />,
       ariaOwns: anchorEl ? "about-menu" : undefined,
       ariaPopup: anchorEl ? true : undefined,
-      click: (e) => handleMenuClick(e),
+      mouseOver: (e) => handleMenuClick(e),
     },
     { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
     { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
-    { name: "support", href: "/support", icon: <HelpIcon /> },
-    { name: "contact", href: "/contact", icon: <ContactMailIcon /> },
+    { name: "support us", href: "/support", icon: <HelpIcon /> },
+    { name: "contact us", href: "/contact", icon: <ContactMailIcon /> },
   ];
 
   useEffect(() => {
@@ -185,7 +185,7 @@ const Header = (props) => {
             to={route.href}
             aria-owns={route.ariaOwns}
             aria-haspopup={route.ariaPopup}
-            onClick={route.click}
+            onMouseEnter={route.mouseOver}
           />
         ))}
       </Tabs>
@@ -220,6 +220,9 @@ const Header = (props) => {
         anchorEl={anchorEl}
         open={openMenu}
         onClose={handleMenuClose}
+        MenuListProps={{
+          onMouseLeave: handleMenuClose,
+        }}
         classes={{ paper: classes.menu }}
         elevation={0}
       >
