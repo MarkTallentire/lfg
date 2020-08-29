@@ -445,6 +445,7 @@ const Header = (props) => {
           component={Link}
           to="/login"
           onClick={() => {
+            setTabValue(false);
             setDrawerOpen(false);
             setOpenMenu(false);
           }}
@@ -461,6 +462,7 @@ const Header = (props) => {
           component={Link}
           to="/register"
           onClick={() => {
+            setTabValue(false);
             setDrawerOpen(false);
             setOpenMenu(false);
           }}
