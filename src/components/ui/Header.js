@@ -81,14 +81,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   drawer: {
-    width: "100%",
-    maxWidth: "360",
+    minWidth: "75%",
+    height: "100%",
   },
   drawerItem: {
     ...theme.typography.tab,
   },
   drawerItemEmphasised: {
     backgroundColor: theme.palette.primary.main,
+  },
+  drawerItemPushBottom: {
+    alignSelf: "flex-end",
   },
   burgerButton: {
     marginLeft: "auto",
@@ -266,6 +269,7 @@ const Header = (props) => {
 
   const drawer = (
     <SwipeableDrawer
+      classes={{ root: classes.drawer, paper: classes.drawer }}
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
       anchor="left"
@@ -275,7 +279,7 @@ const Header = (props) => {
       }}
       onClose={() => setDrawerOpen(false)}
     >
-      <List component="nav" className={classes.drawer}>
+      <List component="nav">
         <ListItem
           divider
           button
@@ -382,7 +386,7 @@ const Header = (props) => {
           component={Link}
           to="/login"
           onClick={() => setDrawerOpen(false)}
-          className={classes.drawerItem}
+          className={`${classes.drawerItem}`}
         >
           <ListItemIcon>
             <PersonIcon />
@@ -395,7 +399,7 @@ const Header = (props) => {
           component={Link}
           to="/register"
           onClick={() => setDrawerOpen(false)}
-          className={[classes.drawerItem, classes.drawerItemEmphasised]}
+          className={`${classes.drawerItem} ${classes.drawerItemEmphasised}`}
         >
           <ListItemIcon>
             <ExitToAppIcon />
