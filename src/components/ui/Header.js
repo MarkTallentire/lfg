@@ -16,9 +16,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
@@ -26,8 +23,6 @@ import StorefrontIcon from "@material-ui/icons/Storefront";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import HelpIcon from "@material-ui/icons/Help";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
-import LiveHelpIcon from "@material-ui/icons/LiveHelp";
-import UpdateIcon from "@material-ui/icons/Update";
 
 import { Link } from "react-router-dom";
 import logo from "../../assets/cute.svg";
@@ -125,50 +120,27 @@ const Header = (props) => {
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+  const menuOptions = [
+    { name: "about us", href: "/aboutus" },
+    { name: "faqs", href: "/faqs" },
+    { name: "coming soon", href: "/comingsoon" },
+  ];
+
+  const routes = [
+    { name: "about", href: "/aboutus", icon: <InfoIcon /> },
+    { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
+    { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
+    { name: "support", href: "/support", icon: <HelpIcon /> },
+    { name: "contact", href: "/contact", icon: <ContactMailIcon /> },
+  ];
+
   useEffect(() => {
-    switch (window.location.pathname) {
-      case "/aboutus":
-        if (tabValue !== 0) {
-          setTabValue(0);
-          setMenuSelectedIndex(0);
-        }
-        break;
-      case "/faqs":
-        if (tabValue !== 0) {
-          setTabValue(0);
-          setMenuSelectedIndex(1);
-        }
-        break;
-      case "/comingsoon":
-        if (tabValue !== 0) {
-          setTabValue(0);
-          setMenuSelectedIndex(2);
-        }
-        break;
-      case "/merch":
-        if (tabValue !== 1) {
-          setTabValue(1);
-        }
-        break;
-      case "/partners":
-        if (tabValue !== 2) {
-          setTabValue(2);
-        }
-        break;
-      case "/support":
-        if (tabValue !== 3) {
-          setTabValue(3);
-        }
-        break;
-      case "/contact":
-        if (tabValue !== 4) {
-          setTabValue(4);
-        }
-        break;
-      default:
-        break;
+    for (let i = 0; i < routes.length; i++) {
+      if (window.location.pathname === routes[i].href) {
+        setTabValue(i);
+      }
     }
-  }, [tabValue]);
+  }, [tabValue, routes]);
 
   const handleTabChange = (e, index) => {
     setTabValue(index);
@@ -183,12 +155,6 @@ const Header = (props) => {
     setAnchorEl(null);
     setOpenMenu(false);
   };
-
-  const menuOptions = [
-    { name: "about us", href: "/aboutus" },
-    { name: "faqs", href: "/faqs" },
-    { name: "coming soon", href: "/comingsoon" },
-  ];
 
   const handleMenuItemClick = (e, i) => {
     setAnchorEl(null);
@@ -210,30 +176,18 @@ const Header = (props) => {
           aria-haspopup={anchorEl ? true : undefined}
           onClick={(e) => handleMenuClick(e)}
         ></Tab>
-        <Tab
-          className={classes.tab}
-          label="merch"
-          component={Link}
-          to="/merch"
-        ></Tab>
-        <Tab
-          className={classes.tab}
-          label="partners"
-          component={Link}
-          to="/partners"
-        ></Tab>
-        <Tab
-          className={classes.tab}
-          label="support us"
-          component={Link}
-          to="/support"
-        ></Tab>
-        <Tab
-          className={classes.tab}
-          label="contact us"
-          component={Link}
-          to="/contact"
-        ></Tab>
+        {routes.map(
+          (route) =>
+            route.name !== "about" && (
+              <Tab
+                key={route.name}
+                className={classes.tab}
+                label={route.name}
+                component={Link}
+                to={route.href}
+              ></Tab>
+            )
+        )}
       </Tabs>
       <Button
         color="primary"
@@ -294,180 +248,28 @@ const Header = (props) => {
       onClose={() => setDrawerOpen(false)}
     >
       <List component="nav" className={classes.nav}>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/about"
-          onClick={() => setOpenMenu(!openMenu)}
-          className={
-            tabValue === 0 ? classes.activeDrawerItem : classes.drawerItem
-          }
-          selected={tabValue === 0}
-        >
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="about" />
-          {openMenu ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={openMenu} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem
-              divider
-              button
-              component={Link}
-              to="/aboutus"
-              className={`${classes.nestedDrawer} ${
-                menuSelectedIndex === 0
-                  ? classes.activeDrawerItem
-                  : classes.drawerItem
-              }`}
-              selected={menuSelectedIndex === 0 && tabValue === 0}
-              onClick={() => {
-                setOpenMenu(false);
-                setMenuSelectedIndex(0);
-                setDrawerOpen(false);
-                setTabValue(0);
-              }}
-            >
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText disableTypography primary="about us" />
-            </ListItem>
-            <ListItem
-              divider
-              button
-              component={Link}
-              to="/faqs"
-              className={`${classes.nestedDrawer} ${
-                menuSelectedIndex === 1
-                  ? classes.activeDrawerItem
-                  : classes.drawerItem
-              }`}
-              selected={menuSelectedIndex === 1 && tabValue === 0}
-              onClick={() => {
-                setOpenMenu(false);
-                setMenuSelectedIndex(1);
-                setDrawerOpen(false);
-                setTabValue(0);
-              }}
-            >
-              <ListItemIcon>
-                <LiveHelpIcon />
-              </ListItemIcon>
-              <ListItemText disableTypography primary="faqs" />
-            </ListItem>
-            <ListItem
-              divider
-              button
-              component={Link}
-              to="/comingsoon"
-              className={`${classes.nestedDrawer} ${
-                menuSelectedIndex === 2
-                  ? classes.activeDrawerItem
-                  : classes.drawerItem
-              }`}
-              selected={menuSelectedIndex === 2 && tabValue === 0}
-              onClick={() => {
-                setOpenMenu(false);
-                setMenuSelectedIndex(2);
-                setDrawerOpen(false);
-                setTabValue(0);
-              }}
-            >
-              <ListItemIcon>
-                <UpdateIcon />
-              </ListItemIcon>
-              <ListItemText disableTypography primary="coming soon" />
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/merch"
-          selected={tabValue === 1}
-          onClick={() => {
-            setOpenMenu(false);
-            setDrawerOpen(false);
-            setTabValue(1);
-            setMenuSelectedIndex(false);
-          }}
-          className={
-            tabValue === 1 ? classes.activeDrawerItem : classes.drawerItem
-          }
-        >
-          <ListItemIcon>
-            <StorefrontIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="merch" />
-        </ListItem>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/partners"
-          selected={tabValue === 2}
-          onClick={() => {
-            setOpenMenu(false);
-            setDrawerOpen(false);
-            setTabValue(2);
-            setMenuSelectedIndex(false);
-          }}
-          className={
-            tabValue === 2 ? classes.activeDrawerItem : classes.drawerItem
-          }
-        >
-          <ListItemIcon>
-            <GroupWorkIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="partners" />
-        </ListItem>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/support"
-          selected={tabValue === 3}
-          onClick={() => {
-            setOpenMenu(false);
-            setDrawerOpen(false);
-            setTabValue(3);
-            setMenuSelectedIndex(false);
-          }}
-          className={
-            tabValue === 3 ? classes.activeDrawerItem : classes.drawerItem
-          }
-        >
-          <ListItemIcon>
-            <HelpIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="support us" />
-        </ListItem>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/contact"
-          selected={tabValue === 4}
-          onClick={() => {
-            setOpenMenu(false);
-            setDrawerOpen(false);
-            setTabValue(4);
-            setMenuSelectedIndex(false);
-          }}
-          className={
-            tabValue === 4 ? classes.activeDrawerItem : classes.drawerItem
-          }
-        >
-          <ListItemIcon>
-            <ContactMailIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="contact us" />
-        </ListItem>
+        {routes.map((route, i) => (
+          <ListItem
+            key={route.name}
+            divider
+            button
+            component={Link}
+            to={route.href}
+            selected={tabValue === i}
+            onClick={() => {
+              setOpenMenu(false);
+              setDrawerOpen(false);
+              setTabValue(i);
+              setMenuSelectedIndex(false);
+            }}
+            className={
+              tabValue === i ? classes.activeDrawerItem : classes.drawerItem
+            }
+          >
+            <ListItemIcon>{route.icon}</ListItemIcon>
+            <ListItemText disableTypography primary={route.name} />
+          </ListItem>
+        ))}
       </List>
       <List component="nav" className={classes.nav}>
         <ListItem
