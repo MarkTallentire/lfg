@@ -258,7 +258,7 @@ const Header = (props) => {
       >
         {menuOptions.map((option, i) => (
           <MenuItem
-            key={option}
+            key={option.name}
             onClick={(e) => {
               handleMenuItemClick(e, i);
               setTabValue(0);
@@ -296,6 +296,7 @@ const Header = (props) => {
           to="/about"
           onClick={() => setOpenMenu(!openMenu)}
           className={classes.drawerItem}
+          selected={tabValue === 0}
         >
           <ListItemIcon>
             <InfoIcon />
@@ -308,7 +309,16 @@ const Header = (props) => {
             <ListItem
               divider
               button
+              component={Link}
+              to="/aboutus"
               className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+              selected={menuSelectedIndex === 0 && tabValue === 0}
+              onClick={() => {
+                setOpenMenu(false);
+                setMenuSelectedIndex(0);
+                setDrawerOpen(false);
+                setTabValue(0);
+              }}
             >
               <ListItemIcon>
                 <InfoIcon />
@@ -318,7 +328,16 @@ const Header = (props) => {
             <ListItem
               divider
               button
+              component={Link}
+              to="/faqs"
               className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+              selected={menuSelectedIndex === 1 && tabValue === 0}
+              onClick={() => {
+                setOpenMenu(false);
+                setMenuSelectedIndex(1);
+                setDrawerOpen(false);
+                setTabValue(0);
+              }}
             >
               <ListItemIcon>
                 <LiveHelpIcon />
@@ -328,7 +347,16 @@ const Header = (props) => {
             <ListItem
               divider
               button
+              component={Link}
+              to="/comingsoon"
               className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+              selected={menuSelectedIndex === 2 && tabValue === 0}
+              onClick={() => {
+                setOpenMenu(false);
+                setMenuSelectedIndex(2);
+                setDrawerOpen(false);
+                setTabValue(0);
+              }}
             >
               <ListItemIcon>
                 <UpdateIcon />
@@ -342,7 +370,12 @@ const Header = (props) => {
           button
           component={Link}
           to="/merch"
-          onClick={() => setDrawerOpen(false)}
+          selected={tabValue === 1}
+          onClick={() => {
+            setOpenMenu(false);
+            setDrawerOpen(false);
+            setTabValue(1);
+          }}
           className={classes.drawerItem}
         >
           <ListItemIcon>
@@ -355,7 +388,12 @@ const Header = (props) => {
           button
           component={Link}
           to="/partners"
-          onClick={() => setDrawerOpen(false)}
+          selected={tabValue === 2}
+          onClick={() => {
+            setOpenMenu(false);
+            setDrawerOpen(false);
+            setTabValue(2);
+          }}
           className={classes.drawerItem}
         >
           <ListItemIcon>
@@ -368,7 +406,12 @@ const Header = (props) => {
           button
           component={Link}
           to="/support"
-          onClick={() => setDrawerOpen(false)}
+          selected={tabValue === 3}
+          onClick={() => {
+            setOpenMenu(false);
+            setDrawerOpen(false);
+            setTabValue(3);
+          }}
           className={classes.drawerItem}
         >
           <ListItemIcon>
@@ -381,7 +424,12 @@ const Header = (props) => {
           button
           component={Link}
           to="/contact"
-          onClick={() => setDrawerOpen(false)}
+          selected={tabValue === 4}
+          onClick={() => {
+            setOpenMenu(false);
+            setDrawerOpen(false);
+            setTabValue(4);
+          }}
           className={classes.drawerItem}
         >
           <ListItemIcon>
@@ -396,7 +444,10 @@ const Header = (props) => {
           button
           component={Link}
           to="/login"
-          onClick={() => setDrawerOpen(false)}
+          onClick={() => {
+            setDrawerOpen(false);
+            setOpenMenu(false);
+          }}
           className={`${classes.drawerItem}`}
         >
           <ListItemIcon>
@@ -409,7 +460,10 @@ const Header = (props) => {
           button
           component={Link}
           to="/register"
-          onClick={() => setDrawerOpen(false)}
+          onClick={() => {
+            setDrawerOpen(false);
+            setOpenMenu(false);
+          }}
           className={`${classes.drawerItem} ${classes.drawerItemEmphasised}`}
         >
           <ListItemIcon>
