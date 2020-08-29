@@ -103,7 +103,7 @@ const Header = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [tabValue, setTabValue] = useState(null);
+  const [tabValue, setTabValue] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -418,7 +418,7 @@ const Header = (props) => {
             <Button
               component={Link}
               to="/"
-              onClick={() => setTabValue(null)}
+              onClick={() => setTabValue(false)}
               disableRipple
               className={classes.logoButton}
             >
