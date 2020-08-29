@@ -41,6 +41,9 @@ function ElevationScroll(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    zIndex: theme.zIndex.modal + 1,
+  },
   toolbarMargin: { ...theme.mixins.toolbar },
   logoButton: {
     "&:hover": {
@@ -61,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "25px",
   },
   button: { marginLeft: "25px", borderRadius: "3px" },
-  menu: { borderRadius: "3px" },
+  menu: { borderRadius: "3px", ...theme.mixins.toolbar },
   menuItem: {
     ...theme.typography.tab,
     opacity: 0.7,
@@ -226,6 +229,7 @@ const Header = (props) => {
         classes={{ paper: classes.menu }}
         elevation={0}
         keepMounted
+        style={{ zIndex: 1302 }}
       >
         {menuOptions.map((option, i) => (
           <MenuItem
@@ -259,6 +263,7 @@ const Header = (props) => {
       }}
       onClose={() => setDrawerOpen(false)}
     >
+      <div className={classes.toolbarMargin} />
       <List component="nav" className={classes.nav}>
         {routes.map((route, i) => (
           <ListItem
@@ -325,7 +330,7 @@ const Header = (props) => {
   return (
     <>
       <ElevationScroll {...props}>
-        <AppBar position="fixed" color="transparent">
+        <AppBar position="fixed" color="transparent" className={classes.appBar}>
           <Toolbar>
             <Button
               component={Link}
