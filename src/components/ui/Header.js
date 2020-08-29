@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     minWidth: "75%",
     height: "100%",
+    justifyContent: "space-between",
   },
   drawerItem: {
     ...theme.typography.tab,
@@ -95,6 +96,11 @@ const useStyles = makeStyles((theme) => ({
   },
   burgerButton: {
     marginLeft: "auto",
+  },
+  nav: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 }));
 
@@ -279,7 +285,7 @@ const Header = (props) => {
       }}
       onClose={() => setDrawerOpen(false)}
     >
-      <List component="nav">
+      <List component="nav" className={classes.nav}>
         <ListItem
           divider
           button
@@ -380,6 +386,8 @@ const Header = (props) => {
           </ListItemIcon>
           <ListItemText disableTypography primary="contact us" />
         </ListItem>
+      </List>
+      <List component="nav" className={classes.nav}>
         <ListItem
           divider
           button
