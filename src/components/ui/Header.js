@@ -271,6 +271,7 @@ const Header = (props) => {
     >
       <List component="nav" className={classes.drawer}>
         <ListItem
+          divider
           button
           component={Link}
           to="/login"
@@ -279,9 +280,10 @@ const Header = (props) => {
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
-          <ListItemText primary="login" />
+          <ListItemText disableTypography primary="login" />
         </ListItem>
         <ListItem
+          divider
           button
           component={Link}
           to="/register"
@@ -290,9 +292,10 @@ const Header = (props) => {
           <ListItemIcon>
             <ExitToAppIcon />
           </ListItemIcon>
-          <ListItemText primary="sign up" />
+          <ListItemText disableTypography primary="sign up" />
         </ListItem>
         <ListItem
+          divider
           button
           component={Link}
           to="/about"
@@ -301,32 +304,33 @@ const Header = (props) => {
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
-          <ListItemText primary="about" />
+          <ListItemText disableTypography primary="about" />
           {openMenu ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openMenu} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nestedDrawer}>
+            <ListItem divider button className={classes.nestedDrawer}>
               <ListItemIcon>
                 <InfoIcon />
               </ListItemIcon>
-              <ListItemText primary="about us" />
+              <ListItemText disableTypography primary="about us" />
             </ListItem>
-            <ListItem button className={classes.nestedDrawer}>
+            <ListItem divider button className={classes.nestedDrawer}>
               <ListItemIcon>
                 <LiveHelpIcon />
               </ListItemIcon>
-              <ListItemText primary="faqs" />
+              <ListItemText disableTypography primary="faqs" />
             </ListItem>
-            <ListItem button className={classes.nestedDrawer}>
+            <ListItem divider button className={classes.nestedDrawer}>
               <ListItemIcon>
                 <UpdateIcon />
               </ListItemIcon>
-              <ListItemText primary="coming soon" />
+              <ListItemText disableTypography primary="coming soon" />
             </ListItem>
           </List>
         </Collapse>
         <ListItem
+          divider
           button
           component={Link}
           to="/merch"
@@ -335,9 +339,10 @@ const Header = (props) => {
           <ListItemIcon>
             <StorefrontIcon />
           </ListItemIcon>
-          <ListItemText primary="merch" />
+          <ListItemText disableTypography primary="merch" />
         </ListItem>
         <ListItem
+          divider
           button
           component={Link}
           to="/partners"
@@ -346,9 +351,10 @@ const Header = (props) => {
           <ListItemIcon>
             <GroupWorkIcon />
           </ListItemIcon>
-          <ListItemText primary="partners" />
+          <ListItemText disableTypography primary="partners" />
         </ListItem>
         <ListItem
+          divider
           button
           component={Link}
           to="/support"
@@ -357,9 +363,10 @@ const Header = (props) => {
           <ListItemIcon>
             <HelpIcon />
           </ListItemIcon>
-          <ListItemText primary="support us" />
+          <ListItemText disableTypography primary="support us" />
         </ListItem>
         <ListItem
+          divider
           button
           component={Link}
           to="/contact"
@@ -368,7 +375,7 @@ const Header = (props) => {
           <ListItemIcon>
             <ContactMailIcon />
           </ListItemIcon>
-          <ListItemText primary="contact us" />
+          <ListItemText disableTypography primary="contact us" />
         </ListItem>
       </List>
     </SwipeableDrawer>
