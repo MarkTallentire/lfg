@@ -84,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: "360",
   },
+  drawerItem: {
+    ...theme.typography.tab,
+  },
   burgerButton: {
     marginLeft: "auto",
   },
@@ -94,7 +97,7 @@ const Header = (props) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [tabValue, setTabValue] = useState(-1);
+  const [tabValue, setTabValue] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -276,6 +279,7 @@ const Header = (props) => {
           component={Link}
           to="/login"
           onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <PersonIcon />
@@ -288,6 +292,7 @@ const Header = (props) => {
           component={Link}
           to="/register"
           onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <ExitToAppIcon />
@@ -300,6 +305,7 @@ const Header = (props) => {
           component={Link}
           to="/about"
           onClick={() => setOpenMenu(!openMenu)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <InfoIcon />
@@ -309,19 +315,31 @@ const Header = (props) => {
         </ListItem>
         <Collapse in={openMenu} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem divider button className={classes.nestedDrawer}>
+            <ListItem
+              divider
+              button
+              className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+            >
               <ListItemIcon>
                 <InfoIcon />
               </ListItemIcon>
               <ListItemText disableTypography primary="about us" />
             </ListItem>
-            <ListItem divider button className={classes.nestedDrawer}>
+            <ListItem
+              divider
+              button
+              className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+            >
               <ListItemIcon>
                 <LiveHelpIcon />
               </ListItemIcon>
               <ListItemText disableTypography primary="faqs" />
             </ListItem>
-            <ListItem divider button className={classes.nestedDrawer}>
+            <ListItem
+              divider
+              button
+              className={`${classes.nestedDrawer} ${classes.drawerItem}`}
+            >
               <ListItemIcon>
                 <UpdateIcon />
               </ListItemIcon>
@@ -335,6 +353,7 @@ const Header = (props) => {
           component={Link}
           to="/merch"
           onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <StorefrontIcon />
@@ -347,6 +366,7 @@ const Header = (props) => {
           component={Link}
           to="/partners"
           onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <GroupWorkIcon />
@@ -359,6 +379,7 @@ const Header = (props) => {
           component={Link}
           to="/support"
           onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <HelpIcon />
@@ -371,6 +392,7 @@ const Header = (props) => {
           component={Link}
           to="/contact"
           onClick={() => setDrawerOpen(false)}
+          className={classes.drawerItem}
         >
           <ListItemIcon>
             <ContactMailIcon />
@@ -389,7 +411,7 @@ const Header = (props) => {
             <Button
               component={Link}
               to="/"
-              onClick={() => setTabValue(-1)}
+              onClick={() => setTabValue(null)}
               disableRipple
               className={classes.logoButton}
             >
