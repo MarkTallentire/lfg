@@ -195,6 +195,10 @@ const Header = (props) => {
         variant="outlined"
         component={Link}
         to="/login"
+        onClick={() => {
+          setTabValue(false);
+          setMenuSelectedIndex(false);
+        }}
       >
         login
       </Button>
@@ -204,6 +208,10 @@ const Header = (props) => {
         className={classes.button}
         component={Link}
         to="/register"
+        onClick={() => {
+          setTabValue(false);
+          setMenuSelectedIndex(false);
+        }}
       >
         sign up
       </Button>
