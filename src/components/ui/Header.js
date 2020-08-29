@@ -51,9 +51,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "transparent",
     },
-    [theme.breakpoints.down("sm")]: {
-      margin: "0 auto",
-    },
   },
   logo: {
     height: "2.75rem",
@@ -86,6 +83,9 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: "100%",
     maxWidth: "360",
+  },
+  burgerButton: {
+    marginLeft: "auto",
   },
 }));
 
@@ -379,14 +379,6 @@ const Header = (props) => {
       <ElevationScroll {...props}>
         <AppBar position="fixed" color="transparent">
           <Toolbar>
-            {matches && (
-              <IconButton
-                onClick={() => setDrawerOpen(!drawerOpen)}
-                disableRipple
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
             <Button
               component={Link}
               to="/"
@@ -402,6 +394,15 @@ const Header = (props) => {
                 games
               </Typography>
             </Button>
+            {matches && (
+              <IconButton
+                onClick={() => setDrawerOpen(!drawerOpen)}
+                disableRipple
+                className={classes.burgerButton}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             {matches ? drawer : tabs}
           </Toolbar>
         </AppBar>
