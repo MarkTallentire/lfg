@@ -127,7 +127,14 @@ const Header = (props) => {
   ];
 
   const routes = [
-    { name: "about", href: "/aboutus", icon: <InfoIcon /> },
+    {
+      name: "about",
+      href: "/aboutus",
+      icon: <InfoIcon />,
+      ariaOwns: anchorEl ? "about-menu" : undefined,
+      ariaPopup: anchorEl ? true : undefined,
+      click: (e) => handleMenuClick(e),
+    },
     { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
     { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
     { name: "support", href: "/support", icon: <HelpIcon /> },
@@ -169,25 +176,18 @@ const Header = (props) => {
         onChange={handleTabChange}
         className={classes.tabContainer}
       >
-        <Tab
-          className={classes.tab}
-          label={<div>about</div>}
-          aria-owns={anchorEl ? "about-menu" : undefined}
-          aria-haspopup={anchorEl ? true : undefined}
-          onClick={(e) => handleMenuClick(e)}
-        ></Tab>
-        {routes.map(
-          (route) =>
-            route.name !== "about" && (
-              <Tab
-                key={route.name}
-                className={classes.tab}
-                label={route.name}
-                component={Link}
-                to={route.href}
-              ></Tab>
-            )
-        )}
+        {routes.map((route) => (
+          <Tab
+            key={route.name}
+            className={classes.tab}
+            label={route.name}
+            component={Link}
+            to={route.href}
+            aria-owns={route.ariaOwns}
+            aria-haspopup={route.ariaPopup}
+            onClick={route.click}
+          />
+        ))}
       </Tabs>
       <Button
         color="primary"
