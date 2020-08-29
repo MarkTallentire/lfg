@@ -128,7 +128,7 @@ const Header = (props) => {
 
   const routes = [
     {
-      name: "about",
+      name: "about us",
       href: "/aboutus",
       icon: <InfoIcon />,
       ariaOwns: anchorEl ? "about-menu" : undefined,
@@ -225,6 +225,7 @@ const Header = (props) => {
         }}
         classes={{ paper: classes.menu }}
         elevation={0}
+        keepMounted
       >
         {menuOptions.map((option, i) => (
           <MenuItem
