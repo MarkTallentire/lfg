@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerItemEmphasised: {
     backgroundColor: theme.palette.primary.main,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.light,
+    },
   },
   drawerItemPushBottom: {
     alignSelf: "flex-end",
