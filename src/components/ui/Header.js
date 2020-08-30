@@ -43,6 +43,7 @@ function ElevationScroll(props) {
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.modal + 1,
+    backgroundColor: theme.palette.background.default,
   },
   toolbarMargin: { ...theme.mixins.toolbar },
   logoButton: {
