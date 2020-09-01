@@ -85,7 +85,7 @@ const RegisterPage = () => {
               }, 500);
             }}
           >
-            {({ submitForm, isSubmitting, values, errors }) => (
+            {({ submitForm, isSubmitting, errors }) => (
               <Form className={classes.form}>
                 <Grid container direction="column">
                   <Grid item>
@@ -156,7 +156,7 @@ const RegisterPage = () => {
                       }
                     >
                       {testCountries.map((country) => (
-                        <MenuItem value="{country}" key={country}>
+                        <MenuItem value={country} key={country}>
                           {country}
                         </MenuItem>
                       ))}
