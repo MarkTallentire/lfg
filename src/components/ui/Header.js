@@ -21,7 +21,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
-import HelpIcon from "@material-ui/icons/Help";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 
 import { Link } from "react-router-dom";
@@ -112,14 +111,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
+  const {
+    tabValue,
+    setTabValue,
+    menuSelectedIndex,
+    setMenuSelectedIndex,
+  } = props;
+
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [tabValue, setTabValue] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -128,11 +133,12 @@ const Header = (props) => {
     { name: "about us", href: "/aboutus" },
     { name: "faqs", href: "/faqs" },
     { name: "coming soon", href: "/comingsoon" },
+    { name: "support us", href: "/support" },
   ];
 
   const routes = [
     {
-      name: "about us",
+      name: "about",
       href: "/aboutus",
       icon: <InfoIcon />,
       ariaOwns: anchorEl ? "about-menu" : undefined,
@@ -141,8 +147,12 @@ const Header = (props) => {
     },
     { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
     { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
-    { name: "support us", href: "/support", icon: <HelpIcon /> },
-    { name: "contact us", href: "/contact", icon: <ContactMailIcon /> },
+
+    {
+      name: "community standards",
+      href: "/communitystandards",
+      icon: <ContactMailIcon />,
+    },
   ];
 
   useEffect(() => {
@@ -151,7 +161,7 @@ const Header = (props) => {
         setTabValue(i);
       }
     }
-  }, [tabValue, routes]);
+  }, [setTabValue, tabValue, routes]);
 
   const handleTabChange = (e, index) => {
     setTabValue(index);

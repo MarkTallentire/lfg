@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./ui/Header";
 import { Route, Switch } from "react-router-dom";
+import Footer from "./ui/Footer";
 
 function App() {
+  const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
+  const [tabValue, setTabValue] = useState(false);
   return (
     <>
-      <Header />
+      <Header
+        tabValue={tabValue}
+        setTabValue={setTabValue}
+        menuSelectedIndex={menuSelectedIndex}
+        setMenuSelectedIndex={setMenuSelectedIndex}
+      />
       <Switch>
-        <Route exact path="/" component={() => <div>Home</div>}></Route>
+        <Route
+          exact
+          path="/"
+          component={() => <div style={{ height: "1400px" }}>Home</div>}
+        ></Route>
         <Route
           exact
           path="/aboutus"
@@ -35,6 +47,11 @@ function App() {
           path="/contact"
           component={() => <div>Contact</div>}
         ></Route>
+        <Route
+          exact
+          path="/communitystandards"
+          component={() => <div>Don't be a dick</div>}
+        ></Route>
         <Route exact path="/login" component={() => <div>Login</div>}></Route>
         <Route
           exact
@@ -42,6 +59,12 @@ function App() {
           component={() => <div>SignUp</div>}
         ></Route>
       </Switch>
+      <Footer
+        tabValue={tabValue}
+        setTabValue={setTabValue}
+        menuSelectedIndex={menuSelectedIndex}
+        setMenuSelectedIndex={setMenuSelectedIndex}
+      />
     </>
   );
 }
