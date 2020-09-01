@@ -88,19 +88,8 @@ const LandingPage = () => {
             container
             justify="center"
             align="center"
-            spacing={2}
             className={classes.ctaButtons}
           >
-            <Grid item>
-              <Button
-                component={Link}
-                to="#"
-                variant="outlined"
-                color="primary"
-              >
-                tell me more
-              </Button>
-            </Grid>
             <Grid item>
               <Button
                 component={Link}
@@ -113,95 +102,6 @@ const LandingPage = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid container>
-        <Container>
-          <Grid item>
-            <Grid container direction="row" alignItems="center">
-              <Grid item>
-                <Typography variant="h3" color="primary">
-                  find a group
-                </Typography>
-                <Typography variant="subtitle1">
-                  from beginners to experts, we'll find the right people for you
-                </Typography>
-              </Grid>
-              <Grid item className={classes.imageGrid}>
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item className={classes.moreInfoGrid}>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="flex-end"
-            >
-              <Grid item className={classes.imageGrid}>
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-                <img
-                  src={faker.internet.avatar()}
-                  alt="fake avatar"
-                  className={classes.groupAvatar}
-                />
-              </Grid>
-              <Grid item>
-                <Typography variant="h3" color="primary" align="right">
-                  agree a safe space
-                </Typography>
-                <Typography variant="subtitle1" align="right">
-                  we work with local game shops to find you and your new group{" "}
-                  <br /> a safe space to meet
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Container>
       </Grid>
     </>
   );
