@@ -22,7 +22,6 @@ import InfoIcon from "@material-ui/icons/Info";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
-
 import { Link } from "react-router-dom";
 import logo from "../../assets/cute.svg";
 import { ListItemIcon, ListItemText } from "@material-ui/core";
@@ -81,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     minWidth: "75%",
     height: "100%",
-    justifyContent: "space-between",
   },
   drawerItem: {
     ...theme.typography.tab,
@@ -107,6 +105,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+  },
+  userNav: {
+    marginTop: "5em",
   },
 }));
 
@@ -299,7 +300,7 @@ const Header = (props) => {
           </ListItem>
         ))}
       </List>
-      <List component="nav" className={classes.nav}>
+      <List component="nav" className={`${classes.nav} ${classes.userNav}`}>
         <ListItem
           divider
           button

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "./ui/Header";
 import { Route, Switch } from "react-router-dom";
 import Footer from "./ui/Footer";
+import LandingPage from "./LandingPage";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -15,11 +16,7 @@ function App() {
         setMenuSelectedIndex={setMenuSelectedIndex}
       />
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={() => <div style={{ height: "1400px" }}>Home</div>}
-        ></Route>
+        <Route exact path="/" component={LandingPage}></Route>
         <Route
           exact
           path="/aboutus"
