@@ -69,7 +69,8 @@ const RegisterPage = () => {
               if (!values.password)
                 errors.password =
                   "it's pretty easy to guess a blank password, so much so that your application will be denied immediately";
-              if (!values.dateofbirth) errors.dateofbirth = "Required";
+              if (!values.dateofbirth)
+                errors.dateofbirth = "so you're not alive then?";
               if (!values.city) errors.city = "theres no such place as nowhere";
               if (!values.country)
                 errors.country = "everyone comes from somewhere";
@@ -85,7 +86,15 @@ const RegisterPage = () => {
               }, 500);
             }}
           >
-            {({ submitForm, isSubmitting, errors }) => (
+            {({
+              submitForm,
+              isSubmitting,
+              errors,
+              isValid,
+              touched,
+              dirty,
+              isValidating,
+            }) => (
               <Form className={classes.form}>
                 <Grid container direction="column">
                   <Grid item>
@@ -97,7 +106,7 @@ const RegisterPage = () => {
                       className={classes.formField}
                       fullWidth
                       helperText={
-                        errors.username
+                        errors.username && touched.username
                           ? errors.username
                           : "legends will speak of your glory for years to come, make them remember your name"
                       }
@@ -110,7 +119,7 @@ const RegisterPage = () => {
                       className={classes.formField}
                       fullWidth
                       helperText={
-                        errors.email
+                        errors.email && touched.email
                           ? errors.email
                           : "at the adventurers guild we promise to never give this email address away to anyone else, we'll use it instead of our messenger horses to save their tired legs"
                       }
@@ -123,7 +132,7 @@ const RegisterPage = () => {
                       className={classes.formField}
                       fullWidth
                       helperText={
-                        errors.password
+                        errors.password && touched.password
                           ? errors.password
                           : "to join the guild you'll need a secret word, it should be something memorable to you but something no one can guess"
                       }
@@ -137,7 +146,7 @@ const RegisterPage = () => {
                       format="yyyy-MM-DD"
                       maxDate={moment().add(-18, "year")}
                       helperText={
-                        errors.dateofbirth
+                        errors.dateofbirth && touched.dateofbirth
                           ? errors.dateofbirth
                           : "currently the adventurers guild is only accepting applications from those aged 18 years or over."
                       }
@@ -150,7 +159,7 @@ const RegisterPage = () => {
                       className={classes.formField}
                       fullWidth
                       helperText={
-                        errors.country
+                        errors.country && touched.country
                           ? errors.country
                           : "from where do you hail?"
                       }
@@ -195,7 +204,9 @@ const RegisterPage = () => {
                         <Button
                           variant="contained"
                           color="primary"
-                          disabled={isSubmitting}
+                          disabled={
+                            isValidating || isSubmitting || !isValid || !dirty
+                          }
                           onClick={submitForm}
                         >
                           submit your application

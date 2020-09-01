@@ -21,8 +21,10 @@ const DatePickerField = ({ field, form, ...other }) => {
         minDate={new Date("1900-01-01")}
         onError={(error) => {
           // handle as a side effect
-          if (error !== currentError) {
-            form.setFieldError(field.name, error);
+          if (error !== "") {
+            if (error !== currentError) {
+              form.setFieldError(field.name, error);
+            }
           }
         }}
         // if you are using custom validation schema you probably want to pass `true` as third argument
