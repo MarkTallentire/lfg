@@ -70,8 +70,9 @@ const RegisterPage = () => {
                 errors.password =
                   "it's pretty easy to guess a blank password, so much so that your application will be denied immediately";
               if (!values.dateofbirth) errors.dateofbirth = "Required";
-              if (!values.city) errors.city = "Required";
-              if (!values.country) errors.country = "Required";
+              if (!values.city) errors.city = "theres no such place as nowhere";
+              if (!values.country)
+                errors.country = "everyone comes from somewhere";
               if (!values.termsandconditions)
                 errors.termsandconditions =
                   "Must agree to the terms and conditions";
@@ -178,24 +179,29 @@ const RegisterPage = () => {
                         Newcastle Upon Tyne
                       </MenuItem>
                     </Field>
-                    <Field
-                      type="checkbox"
-                      component={CheckboxWithLabel}
-                      name="termsandconditions"
-                      Label={{
-                        label:
-                          "upon joining the adventurers guild i agree to the privacy policy, community standards and terms and conditions",
-                      }}
-                    />
-
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      disabled={isSubmitting}
-                      onClick={submitForm}
-                    >
-                      submit your application
-                    </Button>
+                    <Grid container direction="column" justify="flex-start">
+                      <Grid item>
+                        <Field
+                          type="checkbox"
+                          component={CheckboxWithLabel}
+                          name="termsandconditions"
+                          Label={{
+                            label:
+                              "upon joining the adventurers guild i agree to the privacy policy, community standards and terms and conditions",
+                          }}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          disabled={isSubmitting}
+                          onClick={submitForm}
+                        >
+                          submit your application
+                        </Button>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Form>
