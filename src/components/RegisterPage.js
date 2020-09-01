@@ -66,7 +66,7 @@ const RegisterPage = () => {
                   label="password"
                   className={classes.formField}
                   fullWidth
-                  helperText="to join our group you'll need a secret word, it should be something memorable to you but something everyone else will forget"
+                  helperText="to join our group you'll need a secret word, it should be something memorable to you but something no one can guess"
                 />
                 <MuiPickersUtilsProvider utils={MomentUtils}>
                   <DatePicker

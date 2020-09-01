@@ -53,12 +53,12 @@ function App() {
         <Route exact path="/login" component={() => <div>Login</div>}></Route>
         <Route exact path="/register" component={RegisterPage}></Route>
       </Switch>
-      {/* <Footer
+      <Footer
         tabValue={tabValue}
         setTabValue={setTabValue}
         menuSelectedIndex={menuSelectedIndex}
         setMenuSelectedIndex={setMenuSelectedIndex}
-      /> */}
+      />
     </>
   );
 }
