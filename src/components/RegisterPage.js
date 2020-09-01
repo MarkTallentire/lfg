@@ -18,6 +18,13 @@ const useStyle = makeStyles((theme) => ({
     margin: "2em 0",
   },
   formField: { marginBottom: "2em" },
+  formText: { marginTop: "4em" },
+  label: {
+    color: theme.palette.text.secondary,
+  },
+  title: {
+    marginBottom: "1em",
+  },
 }));
 
 const RegisterPage = () => {
@@ -34,18 +41,22 @@ const RegisterPage = () => {
         className={classes.mainContainer}
       >
         <Grid item>
-          <Typography variant="h2" align="center">
+          <Typography variant="h2" align="center" className={classes.title}>
             begin your tale
           </Typography>
         </Grid>
         <Grid item>
           <Typography variant="body1">
             after a long hard day of work you find yourself sat at your
-            favourite table in the local tavern. looking down you notice a
-            single sheet of paper, it looks like someone left some kind of
-            registration form to join the local adventurers guild. suddenly an
-            overwhelming desire for adventure washes over you and you scramble
-            for the nearest pen
+            favourite table in the local tavern. its busier than normal and all
+            around you people are playing games of all different shapes and
+            sizes, there's board games, card games, tabletop rpg games,
+            miniatures and even dice games. <br />
+            looking down you notice a single sheet of paper, it looks like
+            someone left some kind of registration papers to join something
+            called lfg.games. you aren't 100% sure why yet but you have an
+            overwhelming desire to be a part of it and begin reaching for your
+            pen
           </Typography>
 
           <Formik
@@ -57,12 +68,14 @@ const RegisterPage = () => {
               city: "",
               country: "",
               termsandconditions: false,
+              online: true,
+              inperson: true,
             }}
             validate={(values) => {
               const errors = {};
               if (!values.email)
                 errors.email =
-                  "applications with no email address are inadmissable in the adventurers guild";
+                  "applications with no email address are inadmissable";
               if (!values.username)
                 errors.username =
                   "you think for a minute before realising that having no name is a pretty silly idea";
@@ -77,6 +90,9 @@ const RegisterPage = () => {
               if (!values.termsandconditions)
                 errors.termsandconditions =
                   "Must agree to the terms and conditions";
+              if (!values.online && !values.inperson) {
+                errors.inperson = "you must choose one";
+              }
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
@@ -121,7 +137,7 @@ const RegisterPage = () => {
                       helperText={
                         errors.email && touched.email
                           ? errors.email
-                          : "at the adventurers guild we promise to never give this email address away to anyone else, we'll use it instead of our messenger horses to save their tired legs"
+                          : "we promise to never give this email address away to anyone else but we do need it to keep you up to date"
                       }
                     />
                     <Field
@@ -134,7 +150,7 @@ const RegisterPage = () => {
                       helperText={
                         errors.password && touched.password
                           ? errors.password
-                          : "to join the guild you'll need a secret word, it should be something memorable to you but something no one can guess"
+                          : "to join you'll need a secret word, you'll be asked for it whenever you return. it should be something memorable to you but something no one else can guess"
                       }
                     />
                     <Field
@@ -148,9 +164,44 @@ const RegisterPage = () => {
                       helperText={
                         errors.dateofbirth && touched.dateofbirth
                           ? errors.dateofbirth
-                          : "currently the adventurers guild is only accepting applications from those aged 18 years or over."
+                          : "currently we are only accepting applications from those aged 18 years or over."
                       }
                     />
+                    <Grid
+                      container
+                      direction="column"
+                      justify="flex-start"
+                      className={classes.formField}
+                    >
+                      <Typography variant="caption" className={classes.label}>
+                        how do you want to play?
+                      </Typography>
+                      <Grid item>
+                        <Field
+                          type="checkbox"
+                          component={CheckboxWithLabel}
+                          name="online"
+                          Label={{
+                            label: "online",
+                          }}
+                        />
+                        <Field
+                          type="checkbox"
+                          component={CheckboxWithLabel}
+                          name="inperson"
+                          Label={{
+                            label: "in person",
+                          }}
+                        />
+                      </Grid>
+                      <Grid item>
+                        {errors.inperson && (
+                          <Typography variant="caption" color="error">
+                            {errors.inperson}
+                          </Typography>
+                        )}
+                      </Grid>
+                    </Grid>
                     <Field
                       component={TextField}
                       label="country"
@@ -178,9 +229,9 @@ const RegisterPage = () => {
                       className={classes.formField}
                       fullWidth
                       helperText={
-                        errors.city
+                        errors.city && touched.city
                           ? errors.city
-                          : "this is probably where you're sat right now, you know, in your local tavern"
+                          : "this is probably where you're sat right now, you know, in your local tavern?"
                       }
                     >
                       <MenuItem value="Peterlee">Peterlee</MenuItem>
@@ -188,6 +239,7 @@ const RegisterPage = () => {
                         Newcastle Upon Tyne
                       </MenuItem>
                     </Field>
+
                     <Grid container direction="column" justify="flex-start">
                       <Grid item>
                         <Field
@@ -196,7 +248,7 @@ const RegisterPage = () => {
                           name="termsandconditions"
                           Label={{
                             label:
-                              "upon joining the adventurers guild i agree to the privacy policy, community standards and terms and conditions",
+                              "upon joining i agree to the privacy policy, community standards and terms and conditions",
                           }}
                         />
                       </Grid>
