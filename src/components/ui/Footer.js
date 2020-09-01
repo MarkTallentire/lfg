@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
   social: {
     height: "1em",
-    width: "1em",
     textDecoration: "none",
     color: theme.palette.text.primary,
     [theme.breakpoints.up("sm")]: {
@@ -150,7 +149,6 @@ const Footer = (props) => {
         container
         justify="center"
         alignItems="center"
-        spacing={2}
         className={classes.socialContainer}
       >
         <Grid
