@@ -3,6 +3,7 @@ import Header from "./ui/Header";
 import { Route, Switch } from "react-router-dom";
 import Footer from "./ui/Footer";
 import LandingPage from "./LandingPage";
+import RegisterPage from "./RegisterPage";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -50,18 +51,14 @@ function App() {
           component={() => <div>Don't be a dick</div>}
         ></Route>
         <Route exact path="/login" component={() => <div>Login</div>}></Route>
-        <Route
-          exact
-          path="/register"
-          component={() => <div>SignUp</div>}
-        ></Route>
+        <Route exact path="/register" component={RegisterPage}></Route>
       </Switch>
-      <Footer
+      {/* <Footer
         tabValue={tabValue}
         setTabValue={setTabValue}
         menuSelectedIndex={menuSelectedIndex}
         setMenuSelectedIndex={setMenuSelectedIndex}
-      />
+      /> */}
     </>
   );
 }
