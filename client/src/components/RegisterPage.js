@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/styles";
 
-import { Container, MenuItem } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { CheckboxWithLabel } from "formik-material-ui";
 
 import Button from "@material-ui/core/Button";
@@ -11,6 +11,7 @@ import { TextField } from "formik-material-ui";
 import { Formik, Form, Field } from "formik";
 import DatePickerField from "./Global/DatePickerField";
 import moment from "moment";
+import GoogleMapsAutoComplete from "./Global/GoogleMapsAutoComplete";
 
 const useStyle = makeStyles((theme) => ({
   mainContainer: { marginTop: theme.spacing(4) },
@@ -30,7 +31,6 @@ const useStyle = makeStyles((theme) => ({
 const RegisterPage = () => {
   const classes = useStyle();
 
-  const testCountries = ["England", "Wales", "Scotland"];
   return (
     <Container fixed>
       <Grid
@@ -65,11 +65,10 @@ const RegisterPage = () => {
               password: "",
               email: "",
               dateofbirth: new Date("1989-07-10"),
-              city: "",
-              country: "",
               termsandconditions: false,
               online: true,
               inperson: true,
+              location: "",
             }}
             validate={(values) => {
               const errors = {};
@@ -84,14 +83,14 @@ const RegisterPage = () => {
                   "it's pretty easy to guess a blank password, so much so that your application will be denied immediately";
               if (!values.dateofbirth)
                 errors.dateofbirth = "so you're not alive then?";
-              if (!values.city) errors.city = "theres no such place as nowhere";
-              if (!values.country)
-                errors.country = "everyone comes from somewhere";
               if (!values.termsandconditions)
                 errors.termsandconditions =
                   "Must agree to the terms and conditions";
               if (!values.online && !values.inperson) {
                 errors.inperson = "you must choose one";
+              }
+              if (!values.location) {
+                errors.location = "everyone hails from somewhere";
               }
               return errors;
             }}
@@ -112,6 +111,8 @@ const RegisterPage = () => {
               isValidating,
             }) => (
               <Form className={classes.form}>
+                {console.log(errors)}
+                {console.log(touched)}
                 <Grid container direction="column">
                   <Grid item>
                     <Field
@@ -202,43 +203,18 @@ const RegisterPage = () => {
                         )}
                       </Grid>
                     </Grid>
+
                     <Field
-                      component={TextField}
-                      label="country"
-                      name="country"
-                      select={true}
+                      component={GoogleMapsAutoComplete}
+                      name="location"
                       className={classes.formField}
-                      fullWidth
+                      label="location"
                       helperText={
-                        errors.country && touched.country
-                          ? errors.country
-                          : "from where do you hail?"
+                        errors.location && touched.location
+                          ? errors.location
+                          : "be as specific as you like, we'll use this to find others in your area"
                       }
-                    >
-                      {testCountries.map((country) => (
-                        <MenuItem value={country} key={country}>
-                          {country}
-                        </MenuItem>
-                      ))}
-                    </Field>
-                    <Field
-                      component={TextField}
-                      select={true}
-                      label="town/city"
-                      name="city"
-                      className={classes.formField}
-                      fullWidth
-                      helperText={
-                        errors.city && touched.city
-                          ? errors.city
-                          : "this is probably where you're sat right now, you know, in your local tavern?"
-                      }
-                    >
-                      <MenuItem value="Peterlee">Peterlee</MenuItem>
-                      <MenuItem value="Newcastle Upon Tyne">
-                        Newcastle Upon Tyne
-                      </MenuItem>
-                    </Field>
+                    />
 
                     <Grid container direction="column" justify="flex-start">
                       <Grid item>

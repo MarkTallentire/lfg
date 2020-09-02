@@ -10,9 +10,6 @@ import wand from "../assets/wand.svg";
 import sword from "../assets/sword.svg";
 import knife from "../assets/knife.svg";
 
-import faker from "faker";
-import { Container } from "@material-ui/core";
-
 const useStyles = makeStyles((theme) => ({
   heroContainer: {
     height: "100vh",
