@@ -16,5 +16,11 @@ namespace Data
         {
             base.OnConfiguring(optionsBuilder);
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.HasPostgresExtension("postgis");
+        }
     }
 }

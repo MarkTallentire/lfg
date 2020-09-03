@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import Header from "./ui/Header";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import Footer from "./ui/Footer";
-import LandingPage from "./LandingPage";
-import RegisterPage from "./RegisterPage";
+import LandingPage from "./Pages/LandingPage";
+import RegisterPage from "./Pages/RegisterPage";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
   const [tabValue, setTabValue] = useState(false);
+
+  const location = useLocation();
   return (
     <>
-      <Header
-        tabValue={tabValue}
-        setTabValue={setTabValue}
-        menuSelectedIndex={menuSelectedIndex}
-        setMenuSelectedIndex={setMenuSelectedIndex}
-      />
+      {location.pathname !== "/register" && location.pathname !== "/login" && (
+        <Header
+          tabValue={tabValue}
+          setTabValue={setTabValue}
+          menuSelectedIndex={menuSelectedIndex}
+          setMenuSelectedIndex={setMenuSelectedIndex}
+        />
+      )}
       <Switch>
         <Route exact path="/" component={LandingPage}></Route>
         <Route
@@ -48,17 +52,19 @@ function App() {
         <Route
           exact
           path="/communitystandards"
-          component={() => <div>Don't be a dick</div>}
+          component={() => <div>Community Standards</div>}
         ></Route>
         <Route exact path="/login" component={() => <div>Login</div>}></Route>
         <Route exact path="/register" component={RegisterPage}></Route>
       </Switch>
-      <Footer
-        tabValue={tabValue}
-        setTabValue={setTabValue}
-        menuSelectedIndex={menuSelectedIndex}
-        setMenuSelectedIndex={setMenuSelectedIndex}
-      />
+      {location.pathname !== "/register" && location.pathname !== "/login" && (
+        <Footer
+          tabValue={tabValue}
+          setTabValue={setTabValue}
+          menuSelectedIndex={menuSelectedIndex}
+          setMenuSelectedIndex={setMenuSelectedIndex}
+        />
+      )}
     </>
   );
 }

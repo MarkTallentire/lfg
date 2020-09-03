@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Application.Auth;
 using Data;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,16 +12,18 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IMediator _mediator;
 
-        public AuthController(DataContext context)
+        public AuthController(DataContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Login()
+        [HttpPost]
+        public async Task<Unit> Register(Register.Request request)
         {
-            return Ok();
+            return await _mediator.Send(request);
         }
     }
 }

@@ -1,6 +1,12 @@
+using System.Reflection;
 using System.Text;
+using Application.Auth;
+using Application.Interfaces.GooglePlaces;
 using Data;
 using Domain.Classes;
+using FluentValidation.AspNetCore;
+using Infrastructure;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,9 +62,15 @@ namespace API
 
             services.AddAuthorization();
             services.AddDbContext<DataContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("lfg")));
-            
-            services.AddControllers();
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("lfg"), x => x.UseNetTopologySuite());
+            });
+
+            var appAssembly = typeof(Register.RequestValidator).GetTypeInfo().Assembly;
+            services.AddMediatR(appAssembly);
+            services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssembly(appAssembly));
+
+            services.AddHttpClient<IGooglePlacesApi, GooglePlacesApi>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +80,8 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("Dev Policy");
 
             app.UseHttpsRedirection();
 
