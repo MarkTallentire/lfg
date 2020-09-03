@@ -14,12 +14,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import {
-  FormControlLabel,
-  Checkbox,
-  Typography,
-  Paper,
-} from "@material-ui/core";
+import { FormControlLabel, Checkbox, Typography } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Link } from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
