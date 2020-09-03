@@ -17,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
     marginBottom: "1em",
   },
   container: {
-    minHeight: "100vh",
+    minHeight: "90vh",
   },
   paper: {
     padding: theme.spacing(4),

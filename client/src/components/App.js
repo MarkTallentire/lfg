@@ -12,14 +12,13 @@ function App() {
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/register" && location.pathname !== "/login" && (
-        <Header
-          tabValue={tabValue}
-          setTabValue={setTabValue}
-          menuSelectedIndex={menuSelectedIndex}
-          setMenuSelectedIndex={setMenuSelectedIndex}
-        />
-      )}
+      <Header
+        tabValue={tabValue}
+        setTabValue={setTabValue}
+        menuSelectedIndex={menuSelectedIndex}
+        setMenuSelectedIndex={setMenuSelectedIndex}
+      />
+
       <Switch>
         <Route exact path="/" component={LandingPage}></Route>
         <Route
@@ -57,14 +56,13 @@ function App() {
         <Route exact path="/login" component={() => <div>Login</div>}></Route>
         <Route exact path="/register" component={RegisterPage}></Route>
       </Switch>
-      {location.pathname !== "/register" && location.pathname !== "/login" && (
-        <Footer
-          tabValue={tabValue}
-          setTabValue={setTabValue}
-          menuSelectedIndex={menuSelectedIndex}
-          setMenuSelectedIndex={setMenuSelectedIndex}
-        />
-      )}
+
+      <Footer
+        tabValue={tabValue}
+        setTabValue={setTabValue}
+        menuSelectedIndex={menuSelectedIndex}
+        setMenuSelectedIndex={setMenuSelectedIndex}
+      />
     </>
   );
 }
