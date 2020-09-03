@@ -77,7 +77,7 @@ const validationSchema = yup.object().shape({
     .required("date of birth is required")
     .test(
       "",
-      `we aren't currently accepting applications from children under 13`,
+      `we aren't currently accepting registrations from children under 13`,
       function (value) {
         return moment().diff(moment(value), "years") >= 13;
       }
@@ -90,10 +90,12 @@ const RegistrationForm = () => {
   const [locationValue, setLocationValue] = React.useState(null);
   const [locationInputValue, setLocationInputValue] = React.useState("");
 
+  console.log(process.env.REACT_APP_GOOGLE_PLACES_API_KEY);
+
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
       loadScript(
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqqZBGz_kTXevIccBpxTlOxKXXyHCvnsg&libraries=places",
+        `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_PLACES_API_KEY}&libraries=places`,
         document.querySelector("head"),
         "google-maps"
       );
@@ -282,7 +284,7 @@ const RegistrationForm = () => {
                 helperText={
                   errors.location
                     ? errors.location.message
-                    : "we use your location to group you with nearby players"
+                    : "we use your location to group you with nearby players, be as specific as you like but we recommend city/town level as a minimum"
                 }
               />
             )}
