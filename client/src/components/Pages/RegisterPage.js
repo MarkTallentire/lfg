@@ -3,12 +3,14 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/styles";
 import { Container, Box } from "@material-ui/core";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Paper from "@material-ui/core/Paper";
 import Axios from "axios";
 
 import logo from "../../assets/cute.svg";
 
 import RegistrationForm from "../Features/RegistrationForm";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyle = makeStyles((theme) => ({
   title: {
@@ -32,6 +34,8 @@ const useStyle = makeStyles((theme) => ({
 
 const RegisterPage = () => {
   const classes = useStyle();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   const onSubmit = (values, { setStatus, setSubmitting }) => {
     Axios.post("https://localhost:44326/api/auth", values)
@@ -49,9 +53,27 @@ const RegisterPage = () => {
     setSubmitting(false);
   };
 
+  const innerContent = (
+    <>
+      <Grid item>
+        <img src={logo} alt="company logo" className={classes.logo} />
+        <Typography variant="h6" component="h1">
+          <Typography variant="h6" component="span" color="primary">
+            lfg.
+          </Typography>
+          games
+        </Typography>
+        <Typography variant="body1">create your account</Typography>
+      </Grid>
+      <Grid item>
+        <RegistrationForm onSubmit={onSubmit} />
+      </Grid>
+    </>
+  );
+
   return (
     <Box justifyContent="center" alignItems="center">
-      <Container fixed>
+      <Container fixed maxWidth="md">
         <Grid
           container
           spacing={0}
@@ -59,21 +81,13 @@ const RegisterPage = () => {
           justify="center"
           className={classes.container}
         >
-          <Paper variant="outlined" className={classes.paper}>
-            <Grid item>
-              <img src={logo} alt="company logo" className={classes.logo} />
-              <Typography variant="h6" component="h1">
-                <Typography variant="h6" component="span" color="primary">
-                  lfg.
-                </Typography>
-                games
-              </Typography>
-              <Typography variant="body1">create your account</Typography>
-            </Grid>
-            <Grid item>
-              <RegistrationForm onSubmit={onSubmit} />
-            </Grid>
-          </Paper>
+          {matches ? (
+            <Paper variant="outlined" className={classes.paper}>
+              {innerContent}
+            </Paper>
+          ) : (
+            innerContent
+          )}
         </Grid>
       </Container>
     </Box>

@@ -340,7 +340,7 @@ const RegistrationForm = () => {
               className={classes.button}
               type="submit"
             >
-              submit my application
+              register
             </Button>
           </Grid>
         </Grid>
