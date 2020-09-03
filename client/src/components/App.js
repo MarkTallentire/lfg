@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "./ui/Header";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Footer from "./ui/Footer";
 import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
@@ -9,7 +9,6 @@ function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
   const [tabValue, setTabValue] = useState(false);
 
-  const location = useLocation();
   return (
     <>
       <Header
