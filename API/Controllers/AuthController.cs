@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<Unit> Register(Register.Request request)
+        public async Task<string> Register(Register.Request request)
         {
             return await _mediator.Send(request);
         }

@@ -3,6 +3,7 @@ using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Exceptions;
+using Application.Interfaces;
 using Application.Interfaces.GooglePlaces;
 using Data;
 using Domain.Classes;
@@ -14,7 +15,7 @@ namespace Application.Auth
 {
     public class Register
     {
-        public class Request : IRequest<Unit>
+        public class Request : IRequest<string>
         {
             public string Username { get; set; }
             public string EmailAddress { get; set; }
@@ -42,18 +43,20 @@ namespace Application.Auth
             }
         }
 
-        public class RequestHandler : IRequestHandler<Request, Unit>
+        public class RequestHandler : IRequestHandler<Request, string>
         {
             private readonly UserManager<User> _userManager;
-            private readonly IGooglePlacesApi _googlePlacesApi;  
+            private readonly IGooglePlacesApi _googlePlacesApi;
+            private readonly IJwtGenerator _jwtGenerator;
 
-            public RequestHandler(UserManager<User> userManager, IGooglePlacesApi googlePlacesApi)
+            public RequestHandler(UserManager<User> userManager, IGooglePlacesApi googlePlacesApi, IJwtGenerator jwtGenerator)
             {
                 _userManager = userManager;
                 _googlePlacesApi = googlePlacesApi;
+                _jwtGenerator = jwtGenerator;
             }
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<string> Handle(Request request, CancellationToken cancellationToken)
             {
                 if (await _userManager.FindByEmailAsync(request.EmailAddress) != null ||
                     await _userManager.FindByNameAsync(request.Username) != null)
@@ -64,7 +67,7 @@ namespace Application.Auth
                 var user = new User(request.Username, request.EmailAddress, request.DateOfBirth, request.TermsAndConditions, request.Online, request.InPerson, await _googlePlacesApi.GetLatLong(request.GooglePlaceId));
                 await _userManager.CreateAsync(user, request.Password);
 
-                return Unit.Value;
+                return await _jwtGenerator.GenerateToken(user);
             }
         }
     }
