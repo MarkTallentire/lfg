@@ -177,7 +177,7 @@ const RegistrationForm = () => {
     data.dateofbirth = moment(data.dateofbirth).format("YYYY-MM-DD");
     axios
       .post("auth", data)
-      .then((response) => console.log(response.data))
+      .then((response) => localStorage.setItem("jwt", response.data))
       .catch((error) => {
         if (error.response.data.serverError) {
           setError("form", {
