@@ -90,8 +90,6 @@ const RegistrationForm = () => {
   const [locationValue, setLocationValue] = React.useState(null);
   const [locationInputValue, setLocationInputValue] = React.useState("");
 
-  console.log(process.env.REACT_APP_GOOGLE_PLACES_API_KEY);
-
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
       loadScript(

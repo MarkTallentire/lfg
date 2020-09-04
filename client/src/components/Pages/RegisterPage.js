@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/styles";
-import { Container, Box } from "@material-ui/core";
+import { Container, Box, Hidden } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Paper from "@material-ui/core/Paper";
 import Axios from "axios";
@@ -56,13 +56,15 @@ const RegisterPage = () => {
   const innerContent = (
     <>
       <Grid item>
-        <img src={logo} alt="company logo" className={classes.logo} />
-        <Typography variant="h6" component="h1">
-          <Typography variant="h6" component="span" color="primary">
-            lfg.
+        <Hidden xsDown>
+          <img src={logo} alt="company logo" className={classes.logo} />
+          <Typography variant="h6" component="h1">
+            <Typography variant="h6" component="span" color="primary">
+              lfg.
+            </Typography>
+            games
           </Typography>
-          games
-        </Typography>
+        </Hidden>
         <Typography variant="body1">create your account</Typography>
       </Grid>
       <Grid item>
