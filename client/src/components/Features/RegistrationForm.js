@@ -92,7 +92,7 @@ const validationSchema = yup.object().shape({
     is: false,
     then: yup.bool().oneOf([true], "you must play either online or in person"),
   }),
-  termsandconditions: yup.bool().oneOf([true], "you must agreed to this"),
+  termsandconditions: yup.bool().oneOf([true], "you must agree to this"),
 });
 
 const RegistrationForm = () => {
@@ -100,7 +100,6 @@ const RegistrationForm = () => {
   const [options, setOptions] = useState([]);
   const [locationValue, setLocationValue] = React.useState(null);
   const [locationInputValue, setLocationInputValue] = React.useState("");
-  const [serverError, setServerError] = React.useState(null);
 
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
@@ -181,18 +180,17 @@ const RegistrationForm = () => {
       .then((response) => console.log(response.data))
       .catch((error) => {
         if (error.response.data.serverError) {
-          setServerError(error.response.data.serverError);
+          setError("form", {
+            type: "manual",
+            message: error.response.data.serverError,
+          });
         } else if (error.response.data.errors) {
           for (let validationError in error.response.data.errors) {
-            //TODO:: I can only work out a way to display one error at a time right now which i hate.
+            //TODO:: I can only work out a way to display one error at a time right now on the client validation so matching this from a server side pespective
             setError(validationError.toLowerCase(), {
               type: "manual",
               message: error.response.data.errors[validationError][0],
             });
-
-            setServerError(
-              "unable to complete registration, please fix the errors above and try again"
-            );
           }
         }
       });
@@ -376,7 +374,7 @@ const RegistrationForm = () => {
         </Grid>
         <Grid item>
           <Typography variant="body2" className={classes.error}>
-            {serverError && serverError}
+            {errors.form && errors.form.message}
           </Typography>
         </Grid>
         <Grid item container spacing={2} alignItems="center">
