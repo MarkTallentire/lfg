@@ -56,6 +56,9 @@ const useStyle = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
   },
+  error: {
+    color: theme.palette.error.main,
+  },
 }));
 
 const validationSchema = yup.object().shape({
@@ -82,6 +85,12 @@ const validationSchema = yup.object().shape({
         return moment().diff(moment(value), "years") >= 13;
       }
     ),
+  inperson: yup.bool(),
+  online: yup.bool().when("inperson", {
+    is: false,
+    then: yup.bool().oneOf([true], "you must play either online or in person"),
+  }),
+  termsandconditions: yup.bool().oneOf([true], "you must agreed to this"),
 });
 
 const RegistrationForm = () => {
@@ -244,11 +253,14 @@ const RegistrationForm = () => {
           />
           <FormControlLabel
             className={classes.labelColour}
-            control={
-              <Checkbox name="online" inputRef={register} color="primary" />
-            }
+            control={<Checkbox name="inperson" inputRef={register} />}
             label="in person"
           />
+          {errors.online && (
+            <Typography variant="body2" className={classes.error}>
+              {errors.online.message}
+            </Typography>
+          )}
         </Grid>
         <Grid item>
           <Autocomplete
@@ -320,6 +332,17 @@ const RegistrationForm = () => {
               );
             }}
           />
+        </Grid>
+
+        <Grid item>
+          <FormControlLabel
+            className={classes.labelColour}
+            control={<Checkbox name="termsandconditions" inputRef={register} />}
+            label="i agree to the community standards, privacy policy and terms and conditions"
+          />
+          <Typography variant="body2" className={classes.error}>
+            {errors.termsandconditions && errors.termsandconditions.message}
+          </Typography>
         </Grid>
         <Grid item container spacing={2} alignItems="center">
           <Grid item>
