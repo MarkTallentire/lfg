@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using API.Middleware;
 using Application.Auth;
 using Application.Interfaces.GooglePlaces;
 using Data;
@@ -82,13 +83,12 @@ namespace API
             }
 
             app.UseCors("Dev Policy");
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseExceptionHandlingMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

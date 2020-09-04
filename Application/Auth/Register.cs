@@ -2,6 +2,7 @@
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Exceptions;
 using Application.Interfaces.GooglePlaces;
 using Data;
 using Domain.Classes;
@@ -31,8 +32,8 @@ namespace Application.Auth
             {
                 RuleFor(x => x.Username).NotEmpty().WithMessage("username cannot be empty");
                 RuleFor(x => x.EmailAddress).NotEmpty().EmailAddress().WithMessage("invalid email address");
-                RuleFor(x => x.Password).MinimumLength(6).WithMessage("password must be a minimum of 6 characters");
-                RuleFor(x => x.DateOfBirth).LessThan(DateTime.Today.AddYears(18)).WithMessage("must be at least 18 years old");
+                RuleFor(x => x.Password).MinimumLength(6).Matches("^.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*$").WithMessage("password must be a minimum of 6 characters and contain one special character");
+                RuleFor(x => x.DateOfBirth).LessThan(DateTime.Today.AddYears(18)).WithMessage("must be at least 13 years old");
                 RuleFor(x => x.TermsAndConditions).Equal(true).WithMessage("must accept terms and conditions");
                 RuleFor(x => x.InPerson).Equal(true).When(x => x.Online == false).WithMessage("must be either online or in person");
                 RuleFor(x => x.Online).Equal(true).When(x => x.InPerson == false).WithMessage("must be either online or in person");
@@ -57,7 +58,7 @@ namespace Application.Auth
                 if (await _userManager.FindByEmailAsync(request.EmailAddress) != null ||
                     await _userManager.FindByNameAsync(request.Username) != null)
                 {
-                    throw new Exception("User exists");
+                    throw new EntityAlreadyExistsException("User", "unable to complete registration - a user with that username or email address already exists");
                 }
 
                 var user = new User(request.Username, request.EmailAddress, request.DateOfBirth, request.TermsAndConditions, request.Online, request.InPerson, await _googlePlacesApi.GetLatLong(request.GooglePlaceId));

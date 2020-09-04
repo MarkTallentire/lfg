@@ -20,6 +20,8 @@ import { Link } from "react-router-dom";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import throttle from "lodash/throttle";
 
+import axios from "../../ApiClient";
+
 /*Todo:: All google autocomplete code is taken from Material Labs documentation and could use a tidy up */
 
 function loadScript(src, position, id) {
@@ -62,7 +64,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const validationSchema = yup.object().shape({
-  location: yup.string().required("location is required"),
+  googleplaceid: yup.string().required("location is required"),
   username: yup.string().required("username required"),
   emailaddress: yup.string().email("invalid email").required("invalid email"),
   password: yup
@@ -98,6 +100,7 @@ const RegistrationForm = () => {
   const [options, setOptions] = useState([]);
   const [locationValue, setLocationValue] = React.useState(null);
   const [locationInputValue, setLocationInputValue] = React.useState("");
+  const [serverError, setServerError] = React.useState(null);
 
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
@@ -122,13 +125,20 @@ const RegistrationForm = () => {
     []
   );
 
-  const { control, register, handleSubmit, errors, setValue } = useForm({
+  const {
+    control,
+    register,
+    handleSubmit,
+    errors,
+    setValue,
+    setError,
+  } = useForm({
     resolver: yupResolver(validationSchema, { abortEarly: false }),
     mode: "onTouched",
   });
 
   useEffect(() => {
-    register("location");
+    register("googleplaceid");
     let active = true;
 
     if (!googleAutoCompleteService.current && window.google) {
@@ -164,8 +174,28 @@ const RegistrationForm = () => {
     };
   }, [locationValue, locationInputValue, fetch, register]);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (data, errors) => {
+    data.dateofbirth = moment(data.dateofbirth).format("YYYY-MM-DD");
+    axios
+      .post("auth", data)
+      .then((response) => console.log(response.data))
+      .catch((error) => {
+        if (error.response.data.serverError) {
+          setServerError(error.response.data.serverError);
+        } else if (error.response.data.errors) {
+          for (let validationError in error.response.data.errors) {
+            //TODO:: I can only work out a way to display one error at a time right now which i hate.
+            setError(validationError.toLowerCase(), {
+              type: "manual",
+              message: error.response.data.errors[validationError][0],
+            });
+
+            setServerError(
+              "unable to complete registration, please fix the errors above and try again"
+            );
+          }
+        }
+      });
   };
 
   const classes = useStyle();
@@ -266,7 +296,7 @@ const RegistrationForm = () => {
           <Autocomplete
             filterOptions={(x) => x}
             options={options}
-            noOptionsText="start typing to find a location"
+            noOptionsText="start typing a location to see your options"
             getOptionLabel={(option) =>
               typeof option === "string" ? option : option.description
             }
@@ -274,11 +304,11 @@ const RegistrationForm = () => {
             autoComplete
             includeInputInList
             filterSelectedOptions
-            name="location"
+            name="googleplaceid"
             onChange={(event, newValue) => {
               setOptions(newValue ? [newValue, ...options] : options);
               setLocationValue(newValue);
-              setValue("location", newValue ? newValue.place_id : null);
+              setValue("googleplaceid", newValue ? newValue.place_id : null);
             }}
             onInputChange={(event, newInputValue) => {
               setLocationInputValue(newInputValue);
@@ -290,10 +320,10 @@ const RegistrationForm = () => {
                 fullWidth
                 variant="outlined"
                 label="location"
-                error={Boolean(errors.location)}
+                error={Boolean(errors.googleplaceid)}
                 helperText={
-                  errors.location
-                    ? errors.location.message
+                  errors.googleplaceid
+                    ? errors.googleplaceid.message
                     : "we use your location to group you with nearby players, be as specific as you like but we recommend city/town level as a minimum"
                 }
               />
@@ -342,6 +372,11 @@ const RegistrationForm = () => {
           />
           <Typography variant="body2" className={classes.error}>
             {errors.termsandconditions && errors.termsandconditions.message}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="body2" className={classes.error}>
+            {serverError && serverError}
           </Typography>
         </Grid>
         <Grid item container spacing={2} alignItems="center">
