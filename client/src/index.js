@@ -8,8 +8,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
+    <CssBaseline />
     <Router>
-      <CssBaseline />
       <App />
     </Router>
   </ThemeProvider>,

@@ -2,6 +2,13 @@ import React, { useEffect, useState, useMemo } from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Typography from "@material-ui/core/Typography";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { makeStyles } from "@material-ui/styles";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
@@ -9,15 +16,11 @@ import {
 import moment from "moment";
 import MomentUtils from "@date-io/moment";
 import parse from "autosuggest-highlight/parse";
-import { makeStyles } from "@material-ui/styles";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { FormControlLabel, Checkbox, Typography } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Link } from "react-router-dom";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import throttle from "lodash/throttle";
 
 import axios from "../../ApiClient";
@@ -131,9 +134,11 @@ const RegistrationForm = () => {
     errors,
     setValue,
     setError,
+    formState,
   } = useForm({
-    resolver: yupResolver(validationSchema, { abortEarly: false }),
+    resolver: yupResolver(validationSchema),
     mode: "onTouched",
+    criteriaMode: "all",
   });
 
   useEffect(() => {
@@ -177,7 +182,9 @@ const RegistrationForm = () => {
     data.dateofbirth = moment(data.dateofbirth).format("YYYY-MM-DD");
     axios
       .post("auth", data)
-      .then((response) => localStorage.setItem("jwt", response.data))
+      .then((response) => {
+        localStorage.setItem("jwt", response.data);
+      })
       .catch((error) => {
         if (error.response.data.serverError) {
           setError("form", {
@@ -386,11 +393,16 @@ const RegistrationForm = () => {
               className={classes.link}
               color="primary"
             >
-              sign in instead
+              log in instead
             </Typography>
           </Grid>
           <Grid item>
             <Button
+              disabled={
+                formState.isSubmitting ||
+                !formState.isDirty ||
+                !formState.isValid
+              }
               variant="contained"
               color="primary"
               className={classes.button}

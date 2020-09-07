@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Footer from "./ui/Footer";
 import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
+import LoginPage from "./Pages/LoginPage";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -52,7 +53,7 @@ function App() {
           path="/communitystandards"
           component={() => <div>Community Standards</div>}
         ></Route>
-        <Route exact path="/login" component={() => <div>Login</div>}></Route>
+        <Route exact path="/login" component={LoginPage}></Route>
         <Route exact path="/register" component={RegisterPage}></Route>
       </Switch>
 
