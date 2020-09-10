@@ -6,6 +6,8 @@ import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
 import ApiClient from "../ApiClient";
+import MyGroups from "./Pages/MyGroups";
+import CreateGroup from "./Pages/CreateGroup";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -13,12 +15,14 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    if (localStorage.getItem("jwt")) {
-      ApiClient.get("/auth")
-        .then((response) => setCurrentUser(response.data))
-        .catch((error) => localStorage.removeItem("jwt"));
+    if (!currentUser || currentUser === true) {
+      if (localStorage.getItem("jwt")) {
+        ApiClient.get("/auth")
+          .then((response) => setCurrentUser(response.data))
+          .catch((error) => localStorage.removeItem("jwt"));
+      }
     }
-  }, []);
+  }, [currentUser]);
 
   return (
     <>
@@ -27,10 +31,19 @@ function App() {
         setTabValue={setTabValue}
         menuSelectedIndex={menuSelectedIndex}
         setMenuSelectedIndex={setMenuSelectedIndex}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
       />
-      {console.log(currentUser)}
       <Switch>
-        <Route exact path="/" component={LandingPage}></Route>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <LandingPage {...props} currentUser={currentUser} />
+          )}
+        ></Route>
+        <Route exact path="/mygroups" component={MyGroups}></Route>
+        <Route exact path="/creategroup" component={CreateGroup} />
         <Route
           exact
           path="/aboutus"

@@ -24,7 +24,9 @@ import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 import { Link } from "react-router-dom";
 import logo from "../../assets/cute.svg";
-import { ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import GroupIcon from "@material-ui/icons/Group";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -109,6 +111,12 @@ const useStyles = makeStyles((theme) => ({
   userNav: {
     marginTop: "5em",
   },
+  avatar: {
+    height: "2em",
+    width: "2em",
+    textDecoration: "none",
+    marginLeft: "25px",
+  },
 }));
 
 const Header = (props) => {
@@ -137,24 +145,42 @@ const Header = (props) => {
     { name: "support us", href: "/support" },
   ];
 
-  const routes = [
-    {
-      name: "about",
-      href: "/aboutus",
-      icon: <InfoIcon />,
-      ariaOwns: anchorEl ? "about-menu" : undefined,
-      ariaPopup: anchorEl ? true : undefined,
-      mouseOver: (e) => handleMenuClick(e),
-    },
-    { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
-    { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
+  let routes = [];
+  console.log(routes);
 
-    {
-      name: "community standards",
-      href: "/communitystandards",
-      icon: <ContactMailIcon />,
-    },
-  ];
+  if (!props.currentUser) {
+    routes = [
+      {
+        name: "about",
+        href: "/aboutus",
+        icon: <InfoIcon />,
+        ariaOwns: anchorEl ? "about-menu" : undefined,
+        ariaPopup: anchorEl ? true : undefined,
+        mouseOver: (e) => handleMenuClick(e),
+      },
+      { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
+      { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
+
+      {
+        name: "community standards",
+        href: "/communitystandards",
+        icon: <ContactMailIcon />,
+      },
+    ];
+  } else {
+    routes = [
+      {
+        name: "my groups",
+        href: "/mygroups",
+        icon: <GroupIcon />,
+      },
+      {
+        name: "find a group",
+        href: "/findgroups",
+        icon: <SearchIcon />,
+      },
+    ];
+  }
 
   useEffect(() => {
     for (let i = 0; i < routes.length; i++) {
@@ -204,32 +230,44 @@ const Header = (props) => {
           />
         ))}
       </Tabs>
-      <Button
-        color="primary"
-        className={classes.button}
-        variant="outlined"
-        component={Link}
-        to="/login"
-        onClick={() => {
-          setTabValue(false);
-          setMenuSelectedIndex(false);
-        }}
-      >
-        login
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
-        className={classes.button}
-        component={Link}
-        to="/register"
-        onClick={() => {
-          setTabValue(false);
-          setMenuSelectedIndex(false);
-        }}
-      >
-        sign up
-      </Button>
+      {props.currentUser ? (
+        <Avatar
+          src="Test"
+          alt={props.currentUser.username}
+          className={classes.avatar}
+          component={Link}
+          to="/profile"
+        />
+      ) : (
+        <>
+          <Button
+            color="primary"
+            className={classes.button}
+            variant="outlined"
+            component={Link}
+            to="/login"
+            onClick={() => {
+              setTabValue(false);
+              setMenuSelectedIndex(false);
+            }}
+          >
+            login
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.button}
+            component={Link}
+            to="/register"
+            onClick={() => {
+              setTabValue(false);
+              setMenuSelectedIndex(false);
+            }}
+          >
+            sign up
+          </Button>
+        </>
+      )}
       <Menu
         id="about-menu"
         anchorEl={anchorEl}
@@ -300,41 +338,88 @@ const Header = (props) => {
           </ListItem>
         ))}
       </List>
+
       <List component="nav" className={`${classes.nav} ${classes.userNav}`}>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/login"
-          onClick={() => {
-            setTabValue(false);
-            setDrawerOpen(false);
-            setOpenMenu(false);
-          }}
-          className={`${classes.activeDrawerItem}`}
-        >
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="login" />
-        </ListItem>
-        <ListItem
-          divider
-          button
-          component={Link}
-          to="/register"
-          onClick={() => {
-            setTabValue(false);
-            setDrawerOpen(false);
-            setOpenMenu(false);
-          }}
-          className={`${classes.activeDrawerItem} ${classes.drawerItemEmphasised}`}
-        >
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText disableTypography primary="sign up" />
-        </ListItem>
+        {props.currentUser ? (
+          <>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/profile"
+              onClick={() => {
+                setTabValue(false);
+                setDrawerOpen(false);
+                setOpenMenu(false);
+              }}
+              className={`${classes.activeDrawerItem} ${classes.drawerItemEmphasised}`}
+            >
+              <ListItemIcon>
+                <Avatar src="Test" alt={props.currentUser.username} />
+              </ListItemIcon>
+              <ListItemText
+                disableTypography
+                primary={props.currentUser.username}
+              />
+            </ListItem>
+            <ListItem
+              divider
+              button
+              onClick={() => {
+                setTabValue(false);
+                setDrawerOpen(false);
+                setOpenMenu(false);
+                localStorage.removeItem("jwt");
+                props.setCurrentUser(null);
+              }}
+              className={classes.drawerItem}
+            >
+              <ListItemIcon>
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+              </ListItemIcon>
+              <ListItemText disableTypography primary="logout" />
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/login"
+              onClick={() => {
+                setTabValue(false);
+                setDrawerOpen(false);
+                setOpenMenu(false);
+              }}
+              className={`${classes.activeDrawerItem}`}
+            >
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText disableTypography primary="login" />
+            </ListItem>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/register"
+              onClick={() => {
+                setTabValue(false);
+                setDrawerOpen(false);
+                setOpenMenu(false);
+              }}
+              className={`${classes.activeDrawerItem} ${classes.drawerItemEmphasised}`}
+            >
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText disableTypography primary="sign up" />
+            </ListItem>
+          </>
+        )}
       </List>
     </SwipeableDrawer>
   );

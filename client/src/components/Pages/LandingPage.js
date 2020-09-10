@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LandingPage = () => {
+const LandingPage = ({ currentUser }) => {
   const classes = useStyles();
 
   return (
@@ -92,7 +92,7 @@ const LandingPage = () => {
             <Grid item>
               <Button
                 component={Link}
-                to="/register"
+                to={currentUser ? "/findgroups" : "/register"}
                 variant="contained"
                 color="primary"
               >

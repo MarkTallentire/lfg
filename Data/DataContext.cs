@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using Domain.Classes;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -22,5 +22,7 @@ namespace Data
             base.OnModelCreating(builder);
             builder.HasPostgresExtension("postgis");
         }
+
+        public DbSet<Group> Groups { get; set; }
     }
 }

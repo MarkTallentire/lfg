@@ -18,7 +18,7 @@ import MomentUtils from "@date-io/moment";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "../../ApiClient";
 import GooglePlacesLocationSearch from "../Global/GooglePlacesLocationSearch";
