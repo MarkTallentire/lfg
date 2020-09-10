@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using API.Middleware;
 using Application.Exceptions;
@@ -45,6 +46,14 @@ namespace API.Middleware
                 result = JsonConvert.SerializeObject(new
                     {statusCode = context.Response.StatusCode, serverError = e.Message});
 ;            }
+            else if (exception is AuthenticationException)
+            {
+                var e = (AuthenticationException) exception;
+                context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                result = JsonConvert.SerializeObject(new
+                    {statusCode = context.Response.StatusCode, serverError = e.Message});
+            }
+
             return context.Response.WriteAsync(result);
         }
     }

@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import * as yup from "yup";
 
 import logo from "../../assets/cute.svg";
+import ApiClient from "../../ApiClient";
 
 const useStyle = makeStyles((theme) => ({
   logo: {
@@ -52,11 +53,14 @@ const LoginPage = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-    setError("form", {
-      type: "manual",
-      message: "incorrect username or password",
-    });
+    ApiClient.post("/auth/login", data)
+      .then((response) => localStorage.setItem("jwt", response.data))
+      .catch((error) =>
+        setError("form", {
+          type: "manual",
+          message: error.response.data.serverError,
+        })
+      );
   };
 
   return (
@@ -104,6 +108,7 @@ const LoginPage = () => {
                 variant="outlined"
                 className={classes.formInput}
                 size="small"
+                type="password"
                 helperText={errors.password && errors.password.message}
                 error={Boolean(errors.password)}
               />
@@ -131,11 +136,7 @@ const LoginPage = () => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  disabled={
-                    formState.isSubmitting ||
-                    !formState.isDirty ||
-                    !formState.isValid
-                  }
+                  disabled={formState.isSubmitting || !formState.isDirty}
                 >
                   login
                 </Button>

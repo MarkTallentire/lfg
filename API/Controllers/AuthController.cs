@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Threading.Tasks;
 using Application.Auth;
 using Data;
 using MediatR;
@@ -25,5 +26,13 @@ namespace API.Controllers
         {
             return await _mediator.Send(request);
         }
+
+        [HttpPost("login")]
+        public async Task<string> Login(Login.Request request)
+        {
+            return await _mediator.Send(request);
+        }
+
+
     }
 }
