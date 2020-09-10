@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./ui/Header";
 import { Route, Switch } from "react-router-dom";
 import Footer from "./ui/Footer";
 import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
+import ApiClient from "../ApiClient";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
   const [tabValue, setTabValue] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      ApiClient.get("/auth")
+        .then((response) => setCurrentUser(response.data))
+        .catch((error) => localStorage.removeItem("jwt"));
+    }
+  }, []);
 
   return (
     <>
@@ -18,7 +28,7 @@ function App() {
         menuSelectedIndex={menuSelectedIndex}
         setMenuSelectedIndex={setMenuSelectedIndex}
       />
-
+      {console.log(currentUser)}
       <Switch>
         <Route exact path="/" component={LandingPage}></Route>
         <Route
@@ -53,10 +63,29 @@ function App() {
           path="/communitystandards"
           component={() => <div>Community Standards</div>}
         ></Route>
-        <Route exact path="/login" component={LoginPage}></Route>
-        <Route exact path="/register" component={RegisterPage}></Route>
+        <Route
+          exact
+          path="/login"
+          render={(props) => (
+            <LoginPage
+              {...props}
+              setCurrentUser={setCurrentUser}
+              currentUser={currentUser}
+            />
+          )}
+        ></Route>
+        <Route
+          exact
+          path="/register"
+          render={(props) => (
+            <RegisterPage
+              {...props}
+              setCurrentUser={setCurrentUser}
+              currentUser={currentUser}
+            />
+          )}
+        ></Route>
       </Switch>
-
       <Footer
         tabValue={tabValue}
         setTabValue={setTabValue}

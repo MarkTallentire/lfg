@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme) => ({
   heroContainer: {
     height: "100vh",
   },
-  heroContent: { transform: "translateY(-50%)" },
+  heroContent: {
+    [theme.breakpoints.up("md")]: { transform: "translateY(-50%)" },
+  },
   ctaButtons: {
     paddingTop: theme.spacing(2),
   },

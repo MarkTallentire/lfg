@@ -74,6 +74,7 @@ namespace API
 
             services.AddHttpClient<IGooglePlacesApi, GooglePlacesApi>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IHttpUserAccessor, HttpUserAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers";
 import { useForm } from "react-hook-form";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import * as yup from "yup";
 
 import logo from "../../assets/cute.svg";
@@ -43,7 +43,7 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("password required"),
 });
 
-const LoginPage = () => {
+const LoginPage = ({ setCurrentUser, currentUser }) => {
   const classes = useStyle();
 
   const { register, handleSubmit, errors, formState, setError } = useForm({
@@ -54,14 +54,22 @@ const LoginPage = () => {
 
   const onSubmit = (data) => {
     ApiClient.post("/auth/login", data)
-      .then((response) => localStorage.setItem("jwt", response.data))
-      .catch((error) =>
+      .then((response) => {
+        localStorage.setItem("jwt", response.data);
+        setCurrentUser(true);
+      })
+      .catch((error) => {
+        console.log(error);
         setError("form", {
           type: "manual",
           message: error.response.data.serverError,
-        })
-      );
+        });
+      });
   };
+
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container fixed maxWidth="sm">
@@ -131,7 +139,6 @@ const LoginPage = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                {console.log(formState.isSubmitting)}
                 <Button
                   type="submit"
                   variant="contained"

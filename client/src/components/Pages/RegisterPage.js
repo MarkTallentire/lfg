@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/styles";
 
 import logo from "../../assets/cute.svg";
 import RegistrationForm from "../Features/RegistrationForm";
+import { Redirect } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   title: {
@@ -31,8 +32,12 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const RegisterPage = () => {
+const RegisterPage = ({ setCurrentUser, currentUser }) => {
   const classes = useStyle();
+
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
 
   const innerContent = (
     <>
@@ -49,7 +54,7 @@ const RegisterPage = () => {
         <Typography variant="body1">create your account</Typography>
       </Grid>
       <Grid item>
-        <RegistrationForm />
+        <RegistrationForm setCurrentUser={setCurrentUser} />
       </Grid>
     </>
   );

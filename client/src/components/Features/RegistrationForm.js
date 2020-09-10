@@ -18,7 +18,7 @@ import MomentUtils from "@date-io/moment";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import axios from "../../ApiClient";
 import GooglePlacesLocationSearch from "../Global/GooglePlacesLocationSearch";
@@ -80,7 +80,8 @@ const validationSchema = yup.object().shape({
   termsandconditions: yup.bool().oneOf([true], "you must agree to this"),
 });
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ setCurrentUser }) => {
+  const classes = useStyle();
   const {
     control,
     register,
@@ -101,6 +102,7 @@ const RegistrationForm = () => {
       .post("auth", data)
       .then((response) => {
         localStorage.setItem("jwt", response.data);
+        setCurrentUser(true);
       })
       .catch((error) => {
         if (error.response.data.serverError) {
@@ -120,7 +122,6 @@ const RegistrationForm = () => {
       });
   };
 
-  const classes = useStyle();
   return (
     <Grid item xs={12}>
       <form onSubmit={handleSubmit(onSubmit)}>
