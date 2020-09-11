@@ -1,7 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 
-const purple = "#B86EFF";
+const purple = "rgb(207,146,255)";
 const breakpoints = createBreakpoints({});
 
 export default createMuiTheme({

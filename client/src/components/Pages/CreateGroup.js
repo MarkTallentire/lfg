@@ -145,7 +145,7 @@ const CreateGroup = () => {
                       <IconButton>
                         <Tooltip title="random">
                           {loadingRandom ? (
-                            <CircularProgress primary size={20} />
+                            <CircularProgress color="primary" size={20} />
                           ) : (
                             <CasinoOutlinedIcon onClick={getRandomName} />
                           )}

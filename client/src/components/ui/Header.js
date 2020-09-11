@@ -146,7 +146,6 @@ const Header = (props) => {
   ];
 
   let routes = [];
-  console.log(routes);
 
   if (!props.currentUser) {
     routes = [
