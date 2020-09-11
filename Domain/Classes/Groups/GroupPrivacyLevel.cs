@@ -6,6 +6,7 @@ namespace Domain.Classes.Groups
 {
     public enum GroupPrivacyLevel
     {
+        Matchmaking,
         Private,
         Friends,
         GroupFriends

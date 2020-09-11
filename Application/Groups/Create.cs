@@ -52,19 +52,9 @@ namespace Application.Groups
                 if(group != null)
                     throw new EntityAlreadyExistsException("group", "a group with this name already exists");
 
-                group = new Group()
-                {
-                    Name = request.GroupName,
-                    Description = request.Description,
-                    PrivacyLevel = Enum.Parse<GroupPrivacyLevel>(request.PrivacyLevel, true)
-                };
-
-                group.Members.Add(new GroupMember()
-                {
-                    User = currentUser,
-                    Group = group,
-                    IsGroupLeader = true
-                });
+                group = new Group(request.GroupName, request.Description,
+                    Enum.Parse<GroupPrivacyLevel>(request.PrivacyLevel, true), currentUser.Id);
+                
                 _context.Groups.Add(group);
 
                 await _context.SaveChangesAsync(cancellationToken);

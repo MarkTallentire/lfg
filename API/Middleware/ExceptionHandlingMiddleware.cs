@@ -53,6 +53,13 @@ namespace API.Middleware
                 result = JsonConvert.SerializeObject(new
                     {statusCode = context.Response.StatusCode, serverError = e.Message});
             }
+            else
+            {
+                var e = exception;
+                context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+                result = JsonConvert.SerializeObject(new
+                    {statusCode = context.Response.StatusCode, serverError = e.Message});
+            }
 
             return context.Response.WriteAsync(result);
         }
