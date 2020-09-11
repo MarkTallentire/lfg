@@ -24,5 +24,12 @@ namespace API.Controllers
         {
             return await _mediator.Send(request);
         }
+
+        [HttpGet("randomname")]
+        public async Task<string> GetRandomName()
+        {
+            return await _mediator.Send(new RandomGroupName.Request());
+
+        }
     }
 }

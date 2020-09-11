@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{FEE1D290-6606-4415-9E31-2FB6A12587AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{E26015C8-06C5-43EB-8378-1BAE9ED5A829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{E26015C8-06C5-43EB-8378-1BAE9ED5A829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{FDB2CDB9-A9E8-4433-AB27-AE018A794262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{FDB2CDB9-A9E8-4433-AB27-AE018A794262}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2E84D154-84E4-489C-BB3C-A868B431C304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,18 @@ Global
 		{FDB2CDB9-A9E8-4433-AB27-AE018A794262}.Release|x64.Build.0 = Release|Any CPU
 		{FDB2CDB9-A9E8-4433-AB27-AE018A794262}.Release|x86.ActiveCfg = Release|Any CPU
 		{FDB2CDB9-A9E8-4433-AB27-AE018A794262}.Release|x86.Build.0 = Release|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Release|x64.Build.0 = Release|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E84D154-84E4-489C-BB3C-A868B431C304}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

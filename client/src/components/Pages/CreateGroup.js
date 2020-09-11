@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TextField,
   InputAdornment,
@@ -17,6 +17,7 @@ import {
   Typography,
   Button,
   FormHelperText,
+  CircularProgress,
 } from "@material-ui/core";
 import CasinoOutlinedIcon from "@material-ui/icons/CasinoOutlined";
 import { Link } from "react-router-dom";
@@ -68,8 +69,16 @@ const validationSchema = yup.object().shape({
 
 const CreateGroup = () => {
   const classes = useStyle();
+  const [loadingRandom, setLoadingRandom] = useState(false);
 
-  const { register, handleSubmit, errors, control } = useForm({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    control,
+    setValue,
+    getValues,
+  } = useForm({
     resolver: yupResolver(validationSchema),
     mode: "onTouched",
     criteriaMode: "all",
@@ -80,6 +89,17 @@ const CreateGroup = () => {
     apiClient
       .post("/groups", data)
       .then((response) => console.log(response.data));
+  };
+
+  const getRandomName = () => {
+    setLoadingRandom(true);
+    apiClient.get("/groups/randomname").then((response) => {
+      setValue("groupname", response.data, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+      setLoadingRandom(false);
+    });
   };
 
   return (
@@ -104,14 +124,19 @@ const CreateGroup = () => {
             <Grid item>
               <FormControl
                 fullWidth
+                size="small"
                 variant="outlined"
                 className={classes.margin}
               >
-                <InputLabel error={Boolean(errors.groupname)}>
+                <InputLabel
+                  shrink={Boolean(getValues("groupname"))}
+                  error={Boolean(errors.groupname)}
+                >
                   group name
                 </InputLabel>
                 <OutlinedInput
-                  labelWidth={90}
+                  notched={Boolean(getValues("groupname"))}
+                  label="group name"
                   name="groupname"
                   inputRef={register}
                   error={Boolean(errors.groupname)}
@@ -119,7 +144,11 @@ const CreateGroup = () => {
                     <InputAdornment position="end">
                       <IconButton>
                         <Tooltip title="random">
-                          <CasinoOutlinedIcon />
+                          {loadingRandom ? (
+                            <CircularProgress primary size={20} />
+                          ) : (
+                            <CasinoOutlinedIcon onClick={getRandomName} />
+                          )}
                         </Tooltip>
                       </IconButton>
                     </InputAdornment>
@@ -133,6 +162,7 @@ const CreateGroup = () => {
             <Grid item>
               <TextField
                 name="description"
+                size="small"
                 label="description"
                 inputRef={register}
                 multiline={true}
@@ -153,7 +183,7 @@ const CreateGroup = () => {
                       <FormControlLabel
                         value="private"
                         control={<Radio />}
-                        label="private - no one can join unless explicitly invited by the groups creator"
+                        label="private - no one can join unless explicitly invited by the groups leader"
                       />
                       <FormControlLabel
                         value="friends"

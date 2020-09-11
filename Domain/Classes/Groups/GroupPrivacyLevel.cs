@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Classes
+namespace Domain.Classes.Groups
 {
     public enum GroupPrivacyLevel
     {
