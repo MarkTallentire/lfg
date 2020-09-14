@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Application.Interfaces.AuthenticatedUser;
 using Domain.Classes;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.AuthenticatedUser
 {
@@ -24,7 +25,10 @@ namespace Application.AuthenticatedUser
             if(currentUserName == null)
                 throw new AuthenticationException("you must be authenticated to create a new group");
 
-            var currentUser = await _userManager.FindByNameAsync(currentUserName);
+            var currentUser = await _userManager.Users
+                                               .Include(x=>x.FriendOf)
+                                               .Include(x=>x.FriendTo)
+                                               .SingleOrDefaultAsync(x=>x.UserName == currentUserName);
             if (currentUser == null)
                 throw new AuthenticationException("you must be authenticated to create a new group");
 

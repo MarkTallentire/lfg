@@ -30,7 +30,7 @@ namespace Application.Groups
             private readonly ILogger _logger;
 
 
-            public RequestHandler(DataContext context, IAuthenticatedUserService authenticatedUserService, ILogger logger)
+            public RequestHandler(DataContext context, IAuthenticatedUserService authenticatedUserService, ILogger<JoinGroup> logger)
             {
                 _context = context;
                 _authenticatedUserService = authenticatedUserService;
@@ -49,6 +49,7 @@ namespace Application.Groups
 
                 if (await _context.SaveChangesAsync(cancellationToken) <= 0)
                 {
+                    _logger.LogCritical($"Failed to join group for {currentUser.Id} and group {group.Id}");
                     throw new JoinGroupException("something went wrong, looks like this group might be setup incorrectly, we've logged the issue and will fix it asap");
                 }
 

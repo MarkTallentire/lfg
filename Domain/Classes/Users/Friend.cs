@@ -2,10 +2,13 @@
 {
     public class Friend
     {
-        public string User1Id { get; set; }
-        public User User1 { get; set; }
-
-        public string User2Id { get; set; }
-        public User User2 { get; set; }
+        public string RequesterId { get; set; }
+        public User Requester { get; set; }
+        
+        public string ReceiverId { get; set; }
+        public User Receiver { get; set; }
+        
+        
+        public bool IsAccepted { get; set; }
     }
 }

@@ -14,8 +14,13 @@ namespace Domain.Classes
         public bool InPerson { get; private set; }
         public Point Location { get; private set; }
 
-        private List<Friend> friends;
-        public IEnumerable<Friend> Friends => friends;
+        private List<Friend> friendTo;
+        private List<Friend> friendOf;
+
+        private List<Friend> friends => friendTo.Concat(friendOf).ToList();
+        
+        public IEnumerable<Friend> FriendTo => friendTo;
+        public IEnumerable<Friend> FriendOf => friendOf;
         
 
         public User(string username, string emailAddress, DateTime dateOfBirth, bool termsandconditionsaccepted, bool online, bool inPerson, Point location)
@@ -28,9 +33,9 @@ namespace Domain.Classes
             {
                 throw new ArgumentNullException(nameof(emailAddress), "Can't create users with no email address");
             }
-            if (dateOfBirth >= DateTime.Today.AddYears(-18))
+            if (dateOfBirth > DateTime.Today.AddYears(-13))
             {
-                throw new ArgumentOutOfRangeException(nameof(dateOfBirth), "You must be 18 or over to register");
+                throw new ArgumentOutOfRangeException(nameof(dateOfBirth), "You must be 13 or over to register");
             }
             if (!termsandconditionsaccepted)
             {
@@ -49,7 +54,8 @@ namespace Domain.Classes
             UserName = username;
             Email = emailAddress;
             DateOfBirth = dateOfBirth;
-            friends = new List<Friend>();
+            friendTo = new List<Friend>();
+            friendOf = new List<Friend>();
             TermsAndConditionsAccepted = DateTime.Now;
             Online = online;
             InPerson = inPerson;
@@ -57,41 +63,84 @@ namespace Domain.Classes
 
         }
 
-        public void AddFriend(string friendId)
+        /// <summary>
+        /// Checks if a user has a friend matching the friendId
+        /// </summary>
+        /// <param name="friendId">The Id of the user to check for friendship</param>
+        /// <returns>
+        /// Returns true if this user has a friend matching the id passed in.
+        /// Will return true even if the friendship link has not yet been accepted
+        /// </returns>
+        public bool HasFriend(string friendId)
+        {
+            return GetFriend(friendId) != null;
+        }
+
+        private Friend GetFriend(string friendId)
         {
             bool match = false;
             foreach (var friend in friends)
             {
-                if (friend.User1Id == friendId || friend.User2Id == friendId)
-                    match = true;
-
-                if (match)
-                    return;
+                if (friend.RequesterId == friendId || friend.ReceiverId == friendId)
+                    return friend;
             }
+
+            return null;
+        }
+        
+        public bool AddFriend(string friendId)
+        {
+            bool match = false;
+            
+            if (HasFriend(friendId))
+                return false;
 
             var newFriend = new Friend()
             {
-                User1Id = this.Id,
-                User2Id = friendId
+                RequesterId = this.Id,
+                ReceiverId = friendId,
+                IsAccepted = false
             };
             
-            friends.Add(newFriend);
-        }
+            friendTo.Add(newFriend);
 
+            return true;
+
+        }
+        public void AcceptFriendRequest(string friendId)
+        {
+            var request = friendOf.SingleOrDefault(x => x.RequesterId == friendId);
+
+            if (request == null)
+                return;
+
+            request.IsAccepted = true;
+        }
+        
+        public void RejectFriendRequest(string friendId)
+        {
+            var request = friends.SingleOrDefault(x => x.RequesterId == friendId);
+
+            if (request == null)
+                return;
+
+            friends.Remove(request);
+        }
+      
+        
         public void RemoveFriend(string friendId)
         {
-            foreach (var friend in friends)
+            var friend = GetFriend(friendId);
+            if (friend != null)
             {
-                if (friend.User1Id == friendId || friend.User2Id == friendId)
-                {
-                    friends.Remove(friend);
-                    return;
-                }
+                if(!friendTo.Remove(friend))
+                    friendOf.Remove(friend);
             }
         }
         private User()
         {
-            friends = new List<Friend>();
+            friendOf = new List<Friend>();
+            friendTo = new List<Friend>();
         }
     }
 }

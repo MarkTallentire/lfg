@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Domain.Classes.NameGenerators;
 using System.Globalization;
+using System.Linq;
 using Domain.Exceptions;
 using NetTopologySuite.Geometries;
 
@@ -68,6 +69,9 @@ namespace Domain.Classes.Groups
             if (members.Count == MaxPlayers)
                 throw new JoinGroupException("group is full");
             
+            if (members.Any(x => x.UserId == user.Id))
+                return;
+            
             //To join a group we have to check permissions first.
             //If this is a matchmaking group then deny the request, matchmaking will be handled differently.
             if(PrivacyLevel == GroupPrivacyLevel.Matchmaking)
@@ -82,7 +86,20 @@ namespace Domain.Classes.Groups
             else if (PrivacyLevel == GroupPrivacyLevel.Friends)
             {
                 //If its a Friends only then we need to check that the user is friends with the group leader
-                throw new NotImplementedException();
+                //get the groups leader
+                var leader = members.SingleOrDefault(x => x.IsGroupLeader);
+                
+                //Check if they're friends.
+                if (user.FriendTo.Any(x => x.RequesterId == leader.UserId) ||
+                    user.FriendTo.Any(x => x.ReceiverId == leader.UserId))
+                {
+                    members.Add(new GroupMember()
+                    {
+                        Group = this,
+                        IsGroupLeader = false,
+                        User = user
+                    });
+                }
             }
             else if (PrivacyLevel == GroupPrivacyLevel.GroupFriends)
             {

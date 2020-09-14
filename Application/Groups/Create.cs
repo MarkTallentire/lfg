@@ -31,8 +31,6 @@ namespace Application.Groups
         public class RequestHandler : IRequestHandler<Request, int>
         {
             private readonly DataContext _context;
-            private readonly IHttpUserAccessor _userAccessor;
-            private readonly UserManager<User> _userManager;
             private readonly IAuthenticatedUserService _authenticatedUserService;
 
             public RequestHandler(DataContext context, IAuthenticatedUserService authenticatedUserService)

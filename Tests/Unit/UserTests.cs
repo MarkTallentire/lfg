@@ -9,6 +9,19 @@ namespace Tests.Unit
     public class UserTests
     {
         [Fact]
+        public void user_cannot_be_under_13()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new User("Olemus", "mark.tallentire@test.com", DateTime.Today.AddYears(-11), 
+                true, true, true, 
+                new Point(1.2f, 1f)));
+
+            var user = new User("Olemus", "mark.tallentire@test.com", DateTime.Today.AddYears(-13),
+                true, true, true,
+                new Point(1.2f, 1f));
+            
+            Assert.NotNull(user);
+        }
+        [Fact]
         public void can_add_friend()
         {
             var user = new User("Olemus", "mark.tallentire@test.com", DateTime.Now.AddYears(-19), 
@@ -21,7 +34,8 @@ namespace Tests.Unit
             
             user.AddFriend(user2.Id);
             
-            Assert.NotEmpty(user.Friends);
+            Assert.NotEmpty(user.FriendTo);
+            Assert.False(user.FriendTo.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
         }
 
         [Fact]
@@ -39,8 +53,9 @@ namespace Tests.Unit
             user.AddFriend(user2.Id);
             
             
-            Assert.NotEmpty(user.Friends);
-            Assert.NotEqual(user.Friends.Count(), 2);
+            Assert.NotEmpty(user.FriendTo);
+            Assert.NotEqual(user.FriendTo.Count(), 2);
+            Assert.False(user.FriendTo.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
         }
 
         [Fact]
@@ -58,12 +73,16 @@ namespace Tests.Unit
             user.AddFriend(user2.Id);
             
             
-            Assert.NotEmpty(user.Friends);
-            Assert.NotEqual(user.Friends.Count(), 2);
+            Assert.NotEmpty(user.FriendTo);
+            Assert.NotEqual(user.FriendTo.Count(), 2);
             
             user.RemoveFriend(user2.Id);
             
-            Assert.Empty(user.Friends);
+            Assert.Empty(user.FriendTo);
         }
+
+       
+        
+        
     }
 }

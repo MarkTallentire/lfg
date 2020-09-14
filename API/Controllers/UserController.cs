@@ -23,6 +23,21 @@ namespace API.Controllers
         {
             return await _mediator.Send(new GroupsList.Request());
         }
-        
+
+        [HttpPost("friends")]
+        public async Task<Unit> AddFriend(AddFriend.Request request)
+        {
+            return await _mediator.Send(request);
+        }
+
+        [HttpDelete("friends/{id}")]
+        public async Task<Unit> RemoveFriend(string id)
+        {
+            return await _mediator.Send(new RemoveFriend.Request()
+            {
+                FriendId = id
+            });
+        }
+
     }
 }

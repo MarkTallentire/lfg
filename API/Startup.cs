@@ -72,7 +72,10 @@ namespace API
 
             var appAssembly = typeof(Register.RequestValidator).GetTypeInfo().Assembly;
             services.AddMediatR(appAssembly);
+            services.AddLogging();
+            
             services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssembly(appAssembly));
+            
 
             services.AddHttpClient<IGooglePlacesApi, GooglePlacesApi>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
@@ -93,6 +96,7 @@ namespace API
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseExceptionHandlingMiddleware();
 
