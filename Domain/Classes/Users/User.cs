@@ -19,7 +19,9 @@ namespace Domain.Classes
         public IEnumerable<Friend> Friends => friendTo.Concat(friendOf).ToList();
         
         //I'd prefer these weren't exposed because it could be confusing but EF forces me to so that relationships are correct
+        //FriendTo is the requesting end, i.e if i request to friend you then that is friend to
         public IEnumerable<Friend> FriendTo => friendTo;
+        //Friend of is for the person accepting (or rejecting!) the friend request.
         public IEnumerable<Friend> FriendOf => friendOf;
 
 
