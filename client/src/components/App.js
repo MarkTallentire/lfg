@@ -8,6 +8,7 @@ import LoginPage from "./Pages/LoginPage";
 import ApiClient from "../ApiClient";
 import MyGroups from "./Pages/MyGroups";
 import CreateGroup from "./Pages/CreateGroup";
+import UserSearch from "./Pages/UserSearch";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -105,6 +106,7 @@ function App() {
         menuSelectedIndex={menuSelectedIndex}
         setMenuSelectedIndex={setMenuSelectedIndex}
       />
+      <UserSearch />
     </>
   );
 }

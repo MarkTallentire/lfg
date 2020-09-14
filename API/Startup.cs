@@ -5,11 +5,14 @@ using Application.Auth;
 using Application.AuthenticatedUser;
 using Application.Interfaces;
 using Application.Interfaces.AuthenticatedUser;
+using Application.Interfaces.Email;
 using Application.Interfaces.GooglePlaces;
 using Data;
 using Domain.Classes;
 using FluentValidation.AspNetCore;
 using Infrastructure;
+using Infrastructure.Email;
+using MailKit.Net.Smtp;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -81,6 +84,7 @@ namespace API
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IHttpUserAccessor, HttpUserAccessor>();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
+            services.AddScoped<ISmtpEmailSender, SmtpEmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

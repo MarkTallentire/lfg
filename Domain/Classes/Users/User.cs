@@ -16,9 +16,7 @@ namespace Domain.Classes
 
         private List<Friend> friendTo;
         private List<Friend> friendOf;
-
         private List<Friend> friends => friendTo.Concat(friendOf).ToList();
-        
         public IEnumerable<Friend> FriendTo => friendTo;
         public IEnumerable<Friend> FriendOf => friendOf;
         
@@ -93,7 +91,9 @@ namespace Domain.Classes
             bool match = false;
             
             if (HasFriend(friendId))
+            {
                 return false;
+            }
 
             var newFriend = new Friend()
             {
