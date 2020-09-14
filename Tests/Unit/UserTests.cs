@@ -34,8 +34,8 @@ namespace Tests.Unit
             
             user.AddFriend(user2.Id);
             
-            Assert.NotEmpty(user.FriendTo);
-            Assert.False(user.FriendTo.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
+            Assert.NotEmpty(user.Friends);
+            Assert.False(user.Friends.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
         }
 
         [Fact]
@@ -53,9 +53,9 @@ namespace Tests.Unit
             user.AddFriend(user2.Id);
             
             
-            Assert.NotEmpty(user.FriendTo);
-            Assert.NotEqual(user.FriendTo.Count(), 2);
-            Assert.False(user.FriendTo.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
+            Assert.NotEmpty(user.Friends);
+            Assert.NotEqual(user.Friends.Count(), 2);
+            Assert.False(user.Friends.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
         }
 
         [Fact]
@@ -73,12 +73,12 @@ namespace Tests.Unit
             user.AddFriend(user2.Id);
             
             
-            Assert.NotEmpty(user.FriendTo);
-            Assert.NotEqual(user.FriendTo.Count(), 2);
+            Assert.NotEmpty(user.Friends);
+            Assert.NotEqual(user.Friends.Count(), 2);
             
             user.RemoveFriend(user2.Id);
             
-            Assert.Empty(user.FriendTo);
+            Assert.Empty(user.Friends);
         }
 
        

@@ -49,7 +49,7 @@ namespace Application.Groups
 
                 group = new Group(request.GroupName, request.Description,
                        Enum.Parse<GroupPrivacyLevel>(request.PrivacyLevel, true), 
-                                 currentUser.Id, request.MinPlayers, request.MaxPlayers);
+                                 currentUser, request.MinPlayers, request.MaxPlayers);
                 
                 _context.Groups.Add(group);
 

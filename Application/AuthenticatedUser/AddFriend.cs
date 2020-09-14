@@ -40,7 +40,7 @@ namespace Application.AuthenticatedUser
                 {
                     var friend = await _userManager.FindByIdAsync(request.FriendId);
                     _smtpEmailSender.SendEmail($"{currentUser.UserName} has sent you a friend request",
-                        $"{currentUser.UserName} has sent you a friend request, <a href='http://lfg.games'>accept it now!</a>",
+                        $"{currentUser.UserName} has sent you a friend request, login to accept or reject it",
                         friend.Email);
                     await _userManager.UpdateAsync(currentUser);
                 }

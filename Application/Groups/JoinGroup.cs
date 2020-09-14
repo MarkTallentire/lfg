@@ -40,7 +40,10 @@ namespace Application.Groups
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
                 var currentUser = await _authenticatedUserService.GetAuthenticatedUser();
-                var group = await _context.Groups.Where(x => x.Id == request.GroupId).SingleOrDefaultAsync(cancellationToken: cancellationToken);
+                var group = await _context.Groups
+                    .Include(x=>x.Members)
+                    .Where(x => x.Id == request.GroupId)
+                    .SingleOrDefaultAsync(cancellationToken: cancellationToken);
                 
                 if(group == null)
                     throw new JoinGroupException("unable to join group as it doesn't exist");

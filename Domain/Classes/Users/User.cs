@@ -16,10 +16,12 @@ namespace Domain.Classes
 
         private List<Friend> friendTo;
         private List<Friend> friendOf;
-        private List<Friend> friends => friendTo.Concat(friendOf).ToList();
+        public IEnumerable<Friend> Friends => friendTo.Concat(friendOf).ToList();
+        
+        //I'd prefer these weren't exposed because it could be confusing but EF forces me to so that relationships are correct
         public IEnumerable<Friend> FriendTo => friendTo;
         public IEnumerable<Friend> FriendOf => friendOf;
-        
+
 
         public User(string username, string emailAddress, DateTime dateOfBirth, bool termsandconditionsaccepted, bool online, bool inPerson, Point location)
         {
@@ -61,6 +63,11 @@ namespace Domain.Classes
 
         }
 
+        private User()
+        {
+            friendOf = new List<Friend>();
+            friendTo = new List<Friend>();
+        }
         /// <summary>
         /// Checks if a user has a friend matching the friendId
         /// </summary>
@@ -77,7 +84,7 @@ namespace Domain.Classes
         private Friend GetFriend(string friendId)
         {
             bool match = false;
-            foreach (var friend in friends)
+            foreach (var friend in Friends)
             {
                 if (friend.RequesterId == friendId || friend.ReceiverId == friendId)
                     return friend;
@@ -119,12 +126,13 @@ namespace Domain.Classes
         
         public void RejectFriendRequest(string friendId)
         {
-            var request = friends.SingleOrDefault(x => x.RequesterId == friendId);
+            var request = Friends.SingleOrDefault(x => x.RequesterId == friendId);
 
             if (request == null)
                 return;
 
-            friends.Remove(request);
+            if(!friendTo.Remove(request))
+                friendOf.Remove(request);
         }
       
         
@@ -137,10 +145,6 @@ namespace Domain.Classes
                     friendOf.Remove(friend);
             }
         }
-        private User()
-        {
-            friendOf = new List<Friend>();
-            friendTo = new List<Friend>();
-        }
+       
     }
 }
