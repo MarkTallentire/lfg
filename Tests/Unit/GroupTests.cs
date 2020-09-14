@@ -22,15 +22,19 @@ namespace Tests.Unit
         [Fact]
         public void group_is_created()
         {
-            var user = new User("Olemus", "mark.tallentire@test.com", DateTime.Now.AddYears(-19), true, true, true, new Point(1.2f, 1f));
-            var group = new Group("The Murderous Crows", "Unit test group", GroupPrivacyLevel.Matchmaking,  user.Id);
+            var user = new User("Olemus", "mark.tallentire@test.com", DateTime.Now.AddYears(-19), 
+                    true, true, true, 
+                                  new Point(1.2f, 1f));
+            var group = new Group("The Murderous Crows", "Unit test group", GroupPrivacyLevel.Matchmaking,  user.Id, 2, 6);
             
             Assert.True(group.Members.Select(x=>x.UserId).Contains(user.Id));
             Assert.NotNull(group.Name);
             Assert.NotNull(group.Description);
             Assert.NotNull(group.PrivacyLevel);
             Assert.NotEmpty(group.Members);
-            
+            Assert.Equal(2, group.MinPlayers);
+            Assert.Equal(6, group.MaxPlayers);
+
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using Application.Interfaces.AuthenticatedUser;
 using Data;
 using Domain.Classes.Groups;
 using MediatR;
@@ -22,24 +23,19 @@ namespace Application.AuthenticatedUser
         public class RequestHandler : IRequestHandler<Request, List<UserGroupListDto>>
         {
             private readonly DataContext _context;
-            private readonly IHttpUserAccessor _httpUserAccessor;
-            private readonly UserManager<Domain.Classes.User> _userManager;
+            private readonly IAuthenticatedUserService _authenticatedUserService;
 
-            public RequestHandler(DataContext context, IHttpUserAccessor httpUserAccessor, UserManager<Domain.Classes.User> userManager)
+
+            public RequestHandler(DataContext context, IAuthenticatedUserService authenticatedUserService)
             {
                 _context = context;
-                _httpUserAccessor = httpUserAccessor;
-                _userManager = userManager;
+                _authenticatedUserService = authenticatedUserService;
+
             }
             
             public async Task<List<UserGroupListDto>> Handle(Request request, CancellationToken cancellationToken)
             {
-                var username = _httpUserAccessor.GetCurrentUserName();
-                if(username == null)
-                    throw new AuthenticationException("cannot list groups for unauthenticated member");
-                var user = await _userManager.FindByNameAsync(username);
-                if (user == null)
-                    throw new AuthenticationException("cannot list groups for unauthenticated member");
+                var user = await _authenticatedUserService.GetAuthenticatedUser();
                 
                 var groups = await _context.Groups
                                             .Where(x => x.Members.Select(x => x.UserId)

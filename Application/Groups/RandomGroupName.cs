@@ -36,7 +36,6 @@ namespace Application.Groups
                     nameTaken = await _context.Groups.AnyAsync(x => x.Name == randomName, cancellationToken: cancellationToken);
                     numberOfAttempts++;
 
-
                     if (numberOfAttempts > 10)
                         return "Looks like we might have run out of unique combinations, you're on your own for now :(";
 

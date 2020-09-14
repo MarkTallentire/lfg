@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Interfaces;
+using Application.Interfaces.AuthenticatedUser;
 using Data;
 using Domain.Classes;
 using Domain.Classes.Groups;
@@ -22,6 +23,9 @@ namespace Application.Groups
             public string GroupName { get; set; }
             public string Description { get; set; }
             public string PrivacyLevel { get; set; }
+
+            public int MinPlayers { get; set; }
+            public int MaxPlayers { get; set; }
         }
 
         public class RequestHandler : IRequestHandler<Request, int>
@@ -29,31 +33,25 @@ namespace Application.Groups
             private readonly DataContext _context;
             private readonly IHttpUserAccessor _userAccessor;
             private readonly UserManager<User> _userManager;
+            private readonly IAuthenticatedUserService _authenticatedUserService;
 
-            public RequestHandler(DataContext context, IHttpUserAccessor userAccessor, UserManager<User> userManager)
+            public RequestHandler(DataContext context, IAuthenticatedUserService authenticatedUserService)
             {
                 _context = context;
-                _userAccessor = userAccessor;
-                _userManager = userManager;
+                _authenticatedUserService = authenticatedUserService;
             }
 
             public async Task<int> Handle(Request request, CancellationToken cancellationToken)
             {
-                var currentUserName = _userAccessor.GetCurrentUserName();
-                if(currentUserName == null)
-                    throw new AuthenticationException("you must be authenticated to create a new group");
-
-                var currentUser = await _userManager.FindByNameAsync(currentUserName);
-                if (currentUser == null)
-                    throw new AuthenticationException("you must be authenticated to create a new group");
-
+                var currentUser = await _authenticatedUserService.GetAuthenticatedUser();
 
                 var group = _context.Groups.SingleOrDefault(x => x.Name == request.GroupName);
                 if(group != null)
                     throw new EntityAlreadyExistsException("group", "a group with this name already exists");
 
                 group = new Group(request.GroupName, request.Description,
-                    Enum.Parse<GroupPrivacyLevel>(request.PrivacyLevel, true), currentUser.Id);
+                       Enum.Parse<GroupPrivacyLevel>(request.PrivacyLevel, true), 
+                                 currentUser.Id, request.MinPlayers, request.MaxPlayers);
                 
                 _context.Groups.Add(group);
 

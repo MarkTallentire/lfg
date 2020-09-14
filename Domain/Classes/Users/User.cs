@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using NetTopologySuite.Geometries;
 
@@ -6,11 +8,15 @@ namespace Domain.Classes
 {
     public class User : IdentityUser
     {
-        public DateTime DateOfBirth { get; set; }
-        public DateTime TermsAndConditionsAccepted  { get; set; }
-        public bool Online { get; set; }
-        public bool InPerson { get; set; }
-        public Point Location { get; set; }
+        public DateTime DateOfBirth { get; private set; }
+        public DateTime TermsAndConditionsAccepted  { get; private set; }
+        public bool Online { get; private set; }
+        public bool InPerson { get; private set; }
+        public Point Location { get; private set; }
+
+        private List<Friend> friends;
+        public IEnumerable<Friend> Friends => friends;
+        
 
         public User(string username, string emailAddress, DateTime dateOfBirth, bool termsandconditionsaccepted, bool online, bool inPerson, Point location)
         {
@@ -43,6 +49,7 @@ namespace Domain.Classes
             UserName = username;
             Email = emailAddress;
             DateOfBirth = dateOfBirth;
+            friends = new List<Friend>();
             TermsAndConditionsAccepted = DateTime.Now;
             Online = online;
             InPerson = inPerson;
@@ -50,6 +57,41 @@ namespace Domain.Classes
 
         }
 
-        private User(){}
+        public void AddFriend(string friendId)
+        {
+            bool match = false;
+            foreach (var friend in friends)
+            {
+                if (friend.User1Id == friendId || friend.User2Id == friendId)
+                    match = true;
+
+                if (match)
+                    return;
+            }
+
+            var newFriend = new Friend()
+            {
+                User1Id = this.Id,
+                User2Id = friendId
+            };
+            
+            friends.Add(newFriend);
+        }
+
+        public void RemoveFriend(string friendId)
+        {
+            foreach (var friend in friends)
+            {
+                if (friend.User1Id == friendId || friend.User2Id == friendId)
+                {
+                    friends.Remove(friend);
+                    return;
+                }
+            }
+        }
+        private User()
+        {
+            friends = new List<Friend>();
+        }
     }
 }

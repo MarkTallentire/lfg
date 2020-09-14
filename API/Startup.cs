@@ -2,7 +2,9 @@ using System.Reflection;
 using System.Text;
 using API.Middleware;
 using Application.Auth;
+using Application.AuthenticatedUser;
 using Application.Interfaces;
+using Application.Interfaces.AuthenticatedUser;
 using Application.Interfaces.GooglePlaces;
 using Data;
 using Domain.Classes;
@@ -75,6 +77,7 @@ namespace API
             services.AddHttpClient<IGooglePlacesApi, GooglePlacesApi>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IHttpUserAccessor, HttpUserAccessor>();
+            services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

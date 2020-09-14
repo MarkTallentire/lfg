@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Domain.Classes.NameGenerators;
 using System.Globalization;
+using Domain.Exceptions;
+using NetTopologySuite.Geometries;
 
 namespace Domain.Classes.Groups
 {
@@ -13,8 +15,12 @@ namespace Domain.Classes.Groups
         public string Description { get; private set; }
         public GroupPrivacyLevel PrivacyLevel { get; private set; }
 
+        public int MinPlayers { get; private set; }
+        public int MaxPlayers { get; private set; }
+
         private List<GroupMember> members;
         public IEnumerable<GroupMember> Members => members;
+
 
 
         private Group()
@@ -22,7 +28,7 @@ namespace Domain.Classes.Groups
             members = new List<GroupMember>();
         }
 
-        public Group(string name, string description, GroupPrivacyLevel privacyLevel, string leaderId)
+        public Group(string name, string description, GroupPrivacyLevel privacyLevel, string leaderId, int minPlayers, int maxPlayers)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -41,6 +47,9 @@ namespace Domain.Classes.Groups
             Name = name;
             Description = description;
             PrivacyLevel = privacyLevel;
+            MinPlayers = minPlayers;
+            MaxPlayers = maxPlayers;
+            
             var leader = new GroupMember()
             {
                 GroupId = Id,
@@ -48,6 +57,47 @@ namespace Domain.Classes.Groups
                 IsGroupLeader = true
             };
             members = new List<GroupMember> {leader};
+        }
+
+        /// <summary>
+        /// Adds a new user to the group
+        /// </summary>
+        /// <param name="UserId"></param>
+        public void JoinGroup(User user)
+        {
+            if (members.Count == MaxPlayers)
+                throw new JoinGroupException("group is full");
+            
+            //To join a group we have to check permissions first.
+            //If this is a matchmaking group then deny the request, matchmaking will be handled differently.
+            if(PrivacyLevel == GroupPrivacyLevel.Matchmaking)
+            {
+                throw new JoinGroupException("matchmaking groups cannot be joined manually");
+            }
+            else if (PrivacyLevel == GroupPrivacyLevel.Private)
+            {
+                //If its private we need to check that the user has an invite and that the invite is valid
+                throw new NotImplementedException();
+            }
+            else if (PrivacyLevel == GroupPrivacyLevel.Friends)
+            {
+                //If its a Friends only then we need to check that the user is friends with the group leader
+                throw new NotImplementedException();
+            }
+            else if (PrivacyLevel == GroupPrivacyLevel.GroupFriends)
+            {
+                //if its friends of friends then we need to check that the user is friends with anyone in the group
+                throw new NotImplementedException();
+            }
+
+            var newMember = new GroupMember()
+            {
+                UserId = user.Id,
+                IsGroupLeader = false,
+                GroupId = this.Id
+            };
+
+            members.Add(newMember);
         }
 
         public static string GenerateRandomName()
