@@ -118,7 +118,7 @@ namespace API
             {
                 endpoints.MapControllers()
                          .RequireAuthorization();
-                endpoints.MapFallbackToFile("/index");
+                endpoints.MapFallbackToFile("/index.html");
             });
         }
     }

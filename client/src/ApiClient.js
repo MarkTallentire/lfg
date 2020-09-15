@@ -1,7 +1,12 @@
 import axios from "axios";
 
+const baseUrl =
+  process.env.NODE_ENV !== "production"
+    ? "https://localhost:5001/api"
+    : "https://lfg.games/api";
+
 const apiClient = axios.create({
-  baseURL: "https://localhost:5001/api/",
+  baseURL: baseUrl,
 });
 
 apiClient.interceptors.request.use(
