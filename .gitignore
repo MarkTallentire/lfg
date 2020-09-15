@@ -51,3 +51,6 @@ yarn-error.log*
 /.changelog
 .npm/
 client/.env
+
+
+appsettings.json
