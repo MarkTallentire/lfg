@@ -178,6 +178,11 @@ const Header = (props) => {
         href: "/findgroups",
         icon: <SearchIcon />,
       },
+      {
+        name: "looking for more",
+        href: "/lfm",
+        icon: <SearchIcon />,
+      },
     ];
   }
 

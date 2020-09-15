@@ -302,7 +302,7 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Classes.User", "Requester")
-                        .WithMany("Friends")
+                        .WithMany("FriendTo")
                         .HasForeignKey("RequesterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

@@ -20,11 +20,13 @@ namespace Data
         {
             base.OnModelCreating(builder);
             builder.HasPostgresExtension("postgis");
+
+            builder.Entity<User>().Ignore(x => x.Friends);
             builder.Entity<GroupMember>().HasKey(x => new {x.GroupId, x.UserId});
             builder.Entity<Friend>(x =>
             {
                 x.HasKey(x => new {x.ReceiverId, x.RequesterId});
-                
+
                 x.HasOne(x => x.Requester)
                     .WithMany(x => x.FriendTo)
                     .HasForeignKey(x => x.RequesterId)

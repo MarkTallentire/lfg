@@ -88,6 +88,7 @@ function App() {
             />
           )}
         ></Route>
+        <Route exact path="/lfm" component={UserSearch}></Route>
         <Route
           exact
           path="/register"
@@ -106,7 +107,6 @@ function App() {
         menuSelectedIndex={menuSelectedIndex}
         setMenuSelectedIndex={setMenuSelectedIndex}
       />
-      <UserSearch />
     </>
   );
 }

@@ -18,7 +18,7 @@ namespace Infrastructure.Email
         public void SendEmail(string subject, string body, string toEmail)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Mark Tallentire", "lonelycooler@googlemail.com"));
+            message.From.Add(new MailboxAddress("LFG Gamemaster", "gamemaster@lfg.games"));
             message.To.Add(new MailboxAddress(toEmail, toEmail));
 
             message.Subject = subject;

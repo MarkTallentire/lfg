@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using NetTopologySuite.Geometries;
@@ -9,13 +10,14 @@ namespace Domain.Classes
     public class User : IdentityUser
     {
         public DateTime DateOfBirth { get; private set; }
-        public DateTime TermsAndConditionsAccepted  { get; private set; }
+        public DateTime TermsAndConditionsAccepted  { get; set; }
         public bool Online { get; private set; }
         public bool InPerson { get; private set; }
         public Point Location { get; private set; }
 
         private List<Friend> friendTo;
         private List<Friend> friendOf;
+        
         public IEnumerable<Friend> Friends => friendTo.Concat(friendOf).ToList();
         
         //I'd prefer these weren't exposed because it could be confusing but EF forces me to so that relationships are correct
@@ -85,7 +87,6 @@ namespace Domain.Classes
 
         private Friend GetFriend(string friendId)
         {
-            bool match = false;
             foreach (var friend in Friends)
             {
                 if (friend.RequesterId == friendId || friend.ReceiverId == friendId)
@@ -97,8 +98,6 @@ namespace Domain.Classes
         
         public bool AddFriend(string friendId)
         {
-            bool match = false;
-            
             if (HasFriend(friendId))
             {
                 return false;
