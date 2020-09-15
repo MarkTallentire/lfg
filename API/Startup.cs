@@ -100,6 +100,8 @@ namespace API
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             
             app.UseCors("Dev Policy");
             app.UseHttpsRedirection();
@@ -107,8 +109,7 @@ namespace API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+
             
 
             app.UseExceptionHandlingMiddleware();
