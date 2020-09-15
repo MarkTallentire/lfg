@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/static/js/main.620e45fd.chunk.js",
+    "main.js.map": "/static/js/main.620e45fd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.306bd4b9.js",
+    "runtime-main.js.map": "/static/js/runtime-main.306bd4b9.js.map",
+    "static/js/2.d758af48.chunk.js": "/static/js/2.d758af48.chunk.js",
+    "static/js/2.d758af48.chunk.js.map": "/static/js/2.d758af48.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.9a35988f20a0d54871bfdc7226b993a3.js": "/precache-manifest.9a35988f20a0d54871bfdc7226b993a3.js",
+    "service-worker.js": "/service-worker.js",
+    "static/js/2.d758af48.chunk.js.LICENSE.txt": "/static/js/2.d758af48.chunk.js.LICENSE.txt",
+    "static/media/crown.svg": "/static/media/crown.c68a34ae.svg",
+    "static/media/cute.svg": "/static/media/cute.2005b7d8.svg",
+    "static/media/knife.svg": "/static/media/knife.36ba6675.svg",
+    "static/media/lfggames.png": "/static/media/lfggames.70b7aa67.png",
+    "static/media/sword.svg": "/static/media/sword.7584b356.svg",
+    "static/media/wand.svg": "/static/media/wand.888791b8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.306bd4b9.js",
+    "static/js/2.d758af48.chunk.js",
+    "static/js/main.620e45fd.chunk.js"
+  ]
+}
