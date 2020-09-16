@@ -13,8 +13,8 @@ namespace Domain.Classes.GroupFinder
         public string Name { get; private set; }
         public QueueType QueueType { get; private set; }
 
-        private List<GroupFinderRequest> queue;
-        public IEnumerable<GroupFinderRequest> Queue => queue;
+        private List<User> queue;
+        public IEnumerable<User> Queue => queue;
 
         
         /// <summary>
@@ -26,26 +26,21 @@ namespace Domain.Classes.GroupFinder
         /// <param name="queueType"></param>
         public GroupFinder(string name, QueueType queueType)
         {
-            queue = new List<GroupFinderRequest>();
+            queue = new List<User>();
             Name = name;
             QueueType = queueType;
         }
 
-        public void AddToQueue(GroupFinderRequest request)
+        public void AddToQueue(User request)
         {
-            
-            //User is already in the queue, we dont need to do anything
             if (queue.Contains(request))
                 return;
             
             queue.Add(request);
         }
 
-        public void RemoveFromQueue(GroupFinderRequest request)
+        public void RemoveFromQueue(User request)
         {
-            if (!queue.Contains(request))
-                return;
-
             queue.Remove(request);
         }
     }
