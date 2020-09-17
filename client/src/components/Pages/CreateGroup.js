@@ -114,9 +114,9 @@ const CreateGroup = () => {
           <Grid item>
             <Typography variant="h2">create a private group</Typography>
             <Typography variant="subtitle1" className={classes.subtitle}>
-              public games can be accessed via the{" "}
-              <Link to="/matchmaker" className={classes.link}>
-                matchmaker
+              public games can be accessed via{" "}
+              <Link to="/lfg" className={classes.link}>
+                lfg
               </Link>
             </Typography>
           </Grid>

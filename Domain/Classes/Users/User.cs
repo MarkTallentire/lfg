@@ -29,7 +29,7 @@ namespace Domain.Classes
         public IEnumerable<Friend> FriendOf => friendOf;
 
         public IEnumerable<UserGame> GameCollection => gameCollection;
-        public List<UserGame> gameCollection { get; set; }
+        private List<UserGame> gameCollection;
 
 
         public User(string username, string emailAddress, DateTime dateOfBirth, bool termsandconditionsaccepted,

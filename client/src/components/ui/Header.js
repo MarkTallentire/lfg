@@ -174,12 +174,12 @@ const Header = (props) => {
         icon: <GroupIcon />,
       },
       {
-        name: "find a group",
-        href: "/findgroups",
+        name: "lfg",
+        href: "/lfg",
         icon: <SearchIcon />,
       },
       {
-        name: "looking for more",
+        name: "lfm",
         href: "/lfm",
         icon: <SearchIcon />,
       },

@@ -9,6 +9,7 @@ import ApiClient from "../ApiClient";
 import MyGroups from "./Pages/MyGroups";
 import CreateGroup from "./Pages/CreateGroup";
 import UserSearch from "./Pages/UserSearch";
+import LFG from "./Pages/LFG";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -89,6 +90,7 @@ function App() {
           )}
         ></Route>
         <Route exact path="/lfm" component={UserSearch}></Route>
+        <Route exact path="/lfg" component={LFG}></Route>
         <Route
           exact
           path="/register"

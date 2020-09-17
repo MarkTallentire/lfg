@@ -38,8 +38,12 @@ namespace API.Controllers
                 FriendId = id
             });
         }
-        
-        
+
+        [HttpPost("games")]
+        public async Task<Unit> AddGameToCollection(AddGameToCollection.Request request)
+        {
+            return await _mediator.Send(request);
+        }
 
     }
 }

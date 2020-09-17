@@ -55,7 +55,7 @@ namespace Tests.Unit
             
             
             Assert.NotEmpty(user.Friends);
-            Assert.NotEqual(user.Friends.Count(), 2);
+            Assert.NotEqual(2, user.Friends.Count());
             Assert.False(user.Friends.SingleOrDefault(x => x.ReceiverId == user2.Id).IsAccepted);
         }
 
@@ -75,7 +75,7 @@ namespace Tests.Unit
             
             
             Assert.NotEmpty(user.Friends);
-            Assert.NotEqual(user.Friends.Count(), 2);
+            Assert.NotEqual(2, user.Friends.Count());
             
             user.RemoveFriend(user2.Id);
             

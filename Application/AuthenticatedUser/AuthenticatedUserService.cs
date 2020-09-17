@@ -28,6 +28,7 @@ namespace Application.AuthenticatedUser
             var currentUser = await _userManager.Users
                                                .Include(x=>x.FriendOf)
                                                .Include(x=>x.FriendTo)
+                                               .Include(x=>x.GameCollection)
                                                .SingleOrDefaultAsync(x=>x.UserName == currentUserName);
             if (currentUser == null)
                 throw new AuthenticationException("you must be authenticated to create a new group");

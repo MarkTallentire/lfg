@@ -20,7 +20,7 @@ namespace Domain.Classes.GroupFinder
         /// <summary>
         /// Queues should be kept to a minimum (When starting I'm only using 2 queues, online or in person)
         /// to avoid fragmentation of what is likely to be a relatively small user base
-        /// The matchmakingrequest object will be used to keep track of preferences on games, skill level etc.. not the queue.
+        /// The matchmaking request object will be used to keep track of preferences on games, skill level etc.. not the queue.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="queueType"></param>

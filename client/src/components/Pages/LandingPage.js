@@ -92,7 +92,7 @@ const LandingPage = ({ currentUser }) => {
             <Grid item>
               <Button
                 component={Link}
-                to={currentUser ? "/findgroups" : "/register"}
+                to={currentUser ? "/lfg" : "/register"}
                 variant="contained"
                 color="primary"
               >
