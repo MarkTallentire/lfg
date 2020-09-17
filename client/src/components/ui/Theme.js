@@ -20,14 +20,14 @@ export default createMuiTheme({
   },
   typography: {
     button: {
-      textTransform: "lowercase",
       fontFamily: "'Raleway', sans-serif;",
       fontWeight: 600,
+      textTransform: "none",
     },
     tab: {
-      textTransform: "lowercase",
       fontFamily: "'Raleway', sans-serif;",
       fontWeight: 600,
+      textTransform: "none",
     },
     h2: {
       fontFamily: "'Raleway', 'sans-serif'",
@@ -42,6 +42,6 @@ export default createMuiTheme({
         fontSize: "1rem",
       },
     },
-    fontSize: 14,
+    fontSize: 12,
   },
 });

@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   ctaButtons: {
     paddingTop: theme.spacing(2),
   },
+  subtitle: {
+    fontSize: "1.25em",
+  },
   heroIcon: {
     height: "2em",
     width: "2em",
@@ -79,8 +82,12 @@ const LandingPage = ({ currentUser }) => {
             for the tabletop.
           </Typography>
 
-          <Typography variant="body1" align="center">
-            gather your party and venture forth.
+          <Typography
+            variant="subtitle1"
+            align="center"
+            className={classes.subtitle}
+          >
+            Gather your party and venture forth.
           </Typography>
 
           <Grid
@@ -96,7 +103,7 @@ const LandingPage = ({ currentUser }) => {
                 variant="contained"
                 color="primary"
               >
-                join an adventure
+                Join an Adventure
               </Button>
             </Grid>
           </Grid>

@@ -9,7 +9,7 @@ namespace Domain.Classes.GroupFinder
     /// </summary>
     public class GroupFinder
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Name { get; private set; }
         public QueueType QueueType { get; private set; }
 

@@ -1,4 +1,5 @@
 ﻿using Domain.Classes;
+using Domain.Classes.GroupFinder;
 using Domain.Classes.Groups;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -40,5 +41,6 @@ namespace Data
         }
 
         public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupFinder> GroupFinder { get; set; }
     }
 }

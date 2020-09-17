@@ -67,7 +67,7 @@ const MyGroups = () => {
             </Link>{" "}
             or{" "}
             <Link to="/findgroups" className={classes.link}>
-              use the matchmaker
+              use lfg
             </Link>
           </Typography>
         </Grid>
@@ -131,8 +131,8 @@ const MyGroups = () => {
                 create a new private group
               </Link>{" "}
               or{" "}
-              <Link to="/findgroups" className={classes.link}>
-                use the matchmaker
+              <Link to="/lfg" className={classes.link}>
+                use lfg
               </Link>
             </Typography>
           </Grid>

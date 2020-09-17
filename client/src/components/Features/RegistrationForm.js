@@ -54,12 +54,12 @@ const validationSchema = yup.object().shape({
   emailaddress: yup.string().email("invalid email").required("invalid email"),
   password: yup
     .string()
-    .required("password required")
-    .min(6, "password must be a minimum of 6 characters")
+    .required("Password required")
+    .min(6, "Password must be a minimum of 6 characters")
     .matches(
       /* eslint-disable no-useless-escape */
       /^.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?].*$/,
-      "password must contain a special character"
+      "Password must contain a special character"
     ),
   dateofbirth: yup
     .string()
@@ -67,7 +67,7 @@ const validationSchema = yup.object().shape({
     .required("date of birth is required")
     .test(
       "",
-      `we aren't currently accepting registrations from children under 13`,
+      `We aren't currently accepting registrations from children under 13`,
       function (value) {
         return moment().diff(moment(value), "years") >= 13;
       }
@@ -75,9 +75,9 @@ const validationSchema = yup.object().shape({
   inperson: yup.bool(),
   online: yup.bool().when("inperson", {
     is: false,
-    then: yup.bool().oneOf([true], "you must play either online or in person"),
+    then: yup.bool().oneOf([true], "You must play either online or in person"),
   }),
-  termsandconditions: yup.bool().oneOf([true], "you must agree to this"),
+  termsandconditions: yup.bool().oneOf([true], "You must agree to this"),
 });
 
 const RegistrationForm = ({ setCurrentUser }) => {
@@ -132,7 +132,7 @@ const RegistrationForm = ({ setCurrentUser }) => {
             className={classes.formInput}
             variant="outlined"
             name="username"
-            label="username"
+            label="Username"
             inputRef={register}
             error={Boolean(errors.username)}
             helperText={errors.username && errors.username.message}
@@ -145,7 +145,7 @@ const RegistrationForm = ({ setCurrentUser }) => {
             className={classes.formInput}
             variant="outlined"
             name="emailaddress"
-            label="email address"
+            label="Email Address"
             inputRef={register}
             error={Boolean(errors.emailaddress)}
             helperText={errors.emailaddress && errors.emailaddress.message}
@@ -157,7 +157,7 @@ const RegistrationForm = ({ setCurrentUser }) => {
             className={classes.formInput}
             variant="outlined"
             name="password"
-            label="password"
+            label="Password"
             fullWidth
             inputRef={register}
             type="password"
@@ -178,7 +178,7 @@ const RegistrationForm = ({ setCurrentUser }) => {
               inputVariant="outlined"
               openTo="year"
               name="dateofbirth"
-              label="date of birth"
+              label="Date of Birth"
               fullWidth
               format={"YYYY-MM-DD"}
               maxDate={moment().add(-13, "years")}
@@ -190,45 +190,12 @@ const RegistrationForm = ({ setCurrentUser }) => {
             />
           </MuiPickersUtilsProvider>
         </Grid>
-        <Grid item>
-          <Typography
-            variant="body1"
-            className={`${classes.labelColour} ${classes.checkboxLabel}`}
-          >
-            how do you want to play?
-          </Typography>
-          <FormControlLabel
-            className={classes.labelColour}
-            control={
-              <Checkbox name="online" inputRef={register} color="primary" />
-            }
-            label="online"
-          />
-          <FormControlLabel
-            className={classes.labelColour}
-            control={<Checkbox name="inperson" inputRef={register} />}
-            label="in person"
-          />
-          {errors.online && (
-            <Typography variant="body2" className={classes.error}>
-              {errors.online.message}
-            </Typography>
-          )}
-        </Grid>
-        <Grid item>
-          <GooglePlacesLocationSearch
-            register={register}
-            errors={errors}
-            classes={classes}
-            setValue={setValue}
-          />
-        </Grid>
 
         <Grid item>
           <FormControlLabel
             className={classes.labelColour}
             control={<Checkbox name="termsandconditions" inputRef={register} />}
-            label="i agree to the community standards, privacy policy and terms and conditions"
+            label="I agree to the community standards, privacy policy and terms and conditions"
           />
           <Typography variant="body2" className={classes.error}>
             {errors.termsandconditions && errors.termsandconditions.message}
@@ -248,7 +215,7 @@ const RegistrationForm = ({ setCurrentUser }) => {
               className={classes.link}
               color="primary"
             >
-              log in instead
+              Login Instead
             </Typography>
           </Grid>
           <Grid item>
@@ -259,7 +226,7 @@ const RegistrationForm = ({ setCurrentUser }) => {
               className={classes.button}
               type="submit"
             >
-              register
+              Register
             </Button>
           </Grid>
         </Grid>

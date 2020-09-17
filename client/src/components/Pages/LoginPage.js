@@ -4,8 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Paper } from "@material-ui/core";
 
 import { yupResolver } from "@hookform/resolvers";
 import { useForm } from "react-hook-form";
@@ -24,8 +23,14 @@ const useStyle = makeStyles((theme) => ({
       height: "1.75rem",
     },
   },
+  paper: {
+    padding: theme.spacing(4),
+  },
+  header: {
+    color: "white",
+  },
   container: {
-    height: "90vh",
+    height: "100vh",
   },
   formInput: {
     margin: "1em 0",
@@ -72,7 +77,7 @@ const LoginPage = ({ setCurrentUser, currentUser }) => {
   }
 
   return (
-    <Container fixed maxWidth="sm">
+    <Container fixed maxWidth="md">
       <Grid
         container
         spacing={0}
@@ -80,77 +85,83 @@ const LoginPage = ({ setCurrentUser, currentUser }) => {
         justify="center"
         className={classes.container}
       >
-        <Grid item>
-          <Hidden smDown>
-            <img src={logo} alt="company logo" className={classes.logo} />
-          </Hidden>
-          <Typography variant="h6" component="h1">
-            <Typography variant="h6" component="span" color="primary">
-              lfg.
-            </Typography>
-            games
-          </Typography>
-          <Typography variant="body1">login</Typography>
-        </Grid>
-        <Grid item>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid item>
-              <TextField
-                label="username"
-                name="username"
-                inputRef={register}
-                fullWidth
-                variant="outlined"
-                className={classes.formInput}
-                size="small"
-                helperText={errors.username && errors.username.message}
-                error={Boolean(errors.username)}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                label="password"
-                name="password"
-                inputRef={register}
-                fullWidth
-                variant="outlined"
-                className={classes.formInput}
-                size="small"
-                type="password"
-                helperText={errors.password && errors.password.message}
-                error={Boolean(errors.password)}
-              />
-            </Grid>
-            <Grid item>
-              <Typography variant="body2" className={classes.error}>
-                {errors.form && errors.form.message}
+        <Paper square className={classes.paper}>
+          <Grid item>
+            <Link to="/" className={classes.link}>
+              <img src={logo} alt="company logo" className={classes.logo} />
+              <Typography
+                variant="h6"
+                component="h1"
+                className={classes.header}
+              >
+                <Typography variant="h6" component="span" color="primary">
+                  lfg.
+                </Typography>
+                games
               </Typography>
-            </Grid>
-            <Grid item container spacing={2} alignItems="center">
+            </Link>
+            <Typography variant="body1">Login</Typography>
+          </Grid>
+          <Grid item>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid item>
-                <Typography
-                  variant="body2"
-                  to="/register"
-                  component={Link}
-                  className={classes.link}
-                  color="primary"
-                >
-                  register instead
+                <TextField
+                  label="Username"
+                  name="username"
+                  inputRef={register}
+                  fullWidth
+                  variant="outlined"
+                  className={classes.formInput}
+                  size="small"
+                  helperText={errors.username && errors.username.message}
+                  error={Boolean(errors.username)}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Password"
+                  name="password"
+                  inputRef={register}
+                  fullWidth
+                  variant="outlined"
+                  className={classes.formInput}
+                  size="small"
+                  type="password"
+                  helperText={errors.password && errors.password.message}
+                  error={Boolean(errors.password)}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="body2" className={classes.error}>
+                  {errors.form && errors.form.message}
                 </Typography>
               </Grid>
-              <Grid item>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={formState.isSubmitting || !formState.isDirty}
-                >
-                  login
-                </Button>
+              <Grid item container spacing={2} alignItems="center">
+                <Grid item>
+                  <Typography
+                    variant="body2"
+                    to="/register"
+                    component={Link}
+                    className={classes.link}
+                    color="primary"
+                  >
+                    Register Instead
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={formState.isSubmitting || !formState.isDirty}
+                  >
+                    Login
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </Grid>
+            </form>
+          </Grid>
+        </Paper>
       </Grid>
     </Container>
   );

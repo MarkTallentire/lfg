@@ -2,23 +2,23 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Hidden from "@material-ui/core/Hidden";
 import { makeStyles } from "@material-ui/styles";
 
 import logo from "../../assets/cute.svg";
 import RegistrationForm from "../Features/RegistrationForm";
 import { Redirect } from "react-router-dom";
+import { Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   title: {
     marginBottom: "1em",
   },
   container: {
-    minHeight: "90vh",
+    minHeight: "100vh",
   },
   paper: {
     padding: theme.spacing(4),
-    backgroundColor: "transparent",
   },
   logo: {
     height: "2.75rem",
@@ -26,6 +26,12 @@ const useStyle = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       height: "1.75rem",
     },
+  },
+  header: {
+    color: "white",
+  },
+  link: {
+    textDecoration: "none",
   },
   formContainer: {
     margin: theme.spacing(4),
@@ -41,21 +47,23 @@ const RegisterPage = ({ setCurrentUser, currentUser }) => {
 
   const innerContent = (
     <>
-      <Grid item>
-        <Hidden mdDown>
-          <img src={logo} alt="company logo" className={classes.logo} />
-        </Hidden>
-        <Typography variant="h6" component="h1">
-          <Typography variant="h6" component="span" color="primary">
-            lfg.
-          </Typography>
-          games
-        </Typography>
-        <Typography variant="body1">create your account</Typography>
-      </Grid>
-      <Grid item>
-        <RegistrationForm setCurrentUser={setCurrentUser} />
-      </Grid>
+      <Paper square className={classes.paper}>
+        <Grid item>
+          <Link to="/" className={classes.link}>
+            <img src={logo} alt="company logo" className={classes.logo} />
+            <Typography variant="h6" component="h1" className={classes.header}>
+              <Typography variant="h6" component="span" color="primary">
+                lfg.
+              </Typography>
+              games
+            </Typography>
+          </Link>
+          <Typography variant="body1">Sign Up</Typography>
+        </Grid>
+        <Grid item>
+          <RegistrationForm setCurrentUser={setCurrentUser} />
+        </Grid>
+      </Paper>
     </>
   );
 

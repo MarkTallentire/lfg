@@ -41,6 +41,7 @@ const Footer = (props) => {
   const { setTabValue } = props;
 
   const classes = useStyles();
+
   return (
     <footer className={classes.footer}>
       <Hidden smDown>
@@ -56,7 +57,7 @@ const Footer = (props) => {
                 }}
                 className={classes.link}
               >
-                about us
+                About Us
               </Grid>
               <Grid
                 item
@@ -67,7 +68,7 @@ const Footer = (props) => {
                 }}
                 className={classes.link}
               >
-                support us
+                Support Us
               </Grid>
               <Grid
                 item
@@ -78,47 +79,11 @@ const Footer = (props) => {
                 }}
                 className={classes.link}
               >
-                contact us
+                Contact Us
               </Grid>
             </Grid>
           </Grid>
-          <Grid item className={classes.gridItem}>
-            <Grid container direction="column" spacing={2}>
-              <Grid
-                item
-                component={Link}
-                to="merch"
-                onClick={() => {
-                  setTabValue(1);
-                }}
-                className={classes.link}
-              >
-                merch
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Grid container direction="column" spacing={2}>
-              <Grid
-                item
-                component={Link}
-                to="partners"
-                onClick={() => {
-                  setTabValue(2);
-                }}
-                className={classes.link}
-              >
-                partners
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item className={classes.gridItem}>
-            <Grid container direction="column" spacing={2}>
-              <Grid item component={Link} to="careers" className={classes.link}>
-                careers
-              </Grid>
-            </Grid>
-          </Grid>
+
           <Grid item className={classes.gridItem}>
             <Grid container direction="column" spacing={2}>
               <Grid
@@ -127,10 +92,10 @@ const Footer = (props) => {
                 to="privacypolicy"
                 className={classes.link}
               >
-                privacy policy
+                Privacy Policy
               </Grid>
               <Grid item component={Link} to="terms" className={classes.link}>
-                terms and conditions
+                Terms and Conditions
               </Grid>
               <Grid
                 item
@@ -138,7 +103,7 @@ const Footer = (props) => {
                 to="communitystandards"
                 className={classes.link}
               >
-                community standards
+                Community Standards
               </Grid>
             </Grid>
           </Grid>

@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "transparent",
     },
   },
+  logoText: {
+    textTransform: "lowercase",
+  },
   logo: {
     height: "2.75rem",
     marginRight: ".5rem",
@@ -133,9 +136,7 @@ const Header = (props) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-
   const [drawerOpen, setDrawerOpen] = useState(false);
-
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const menuOptions = [
@@ -150,18 +151,16 @@ const Header = (props) => {
   if (!props.currentUser) {
     routes = [
       {
-        name: "about",
+        name: "About",
         href: "/aboutus",
         icon: <InfoIcon />,
         ariaOwns: anchorEl ? "about-menu" : undefined,
         ariaPopup: anchorEl ? true : undefined,
         mouseOver: (e) => handleMenuClick(e),
       },
-      { name: "merch", href: "/merch", icon: <StorefrontIcon /> },
-      { name: "partners", href: "/partners", icon: <GroupWorkIcon /> },
 
       {
-        name: "community standards",
+        name: "Community Standards",
         href: "/communitystandards",
         icon: <ContactMailIcon />,
       },
@@ -169,17 +168,17 @@ const Header = (props) => {
   } else {
     routes = [
       {
-        name: "my groups",
+        name: "My Groups",
         href: "/mygroups",
         icon: <GroupIcon />,
       },
       {
-        name: "lfg",
+        name: "LFG",
         href: "/lfg",
         icon: <SearchIcon />,
       },
       {
-        name: "lfm",
+        name: "LFM",
         href: "/lfm",
         icon: <SearchIcon />,
       },
@@ -255,7 +254,7 @@ const Header = (props) => {
               setMenuSelectedIndex(false);
             }}
           >
-            login
+            Login
           </Button>
           <Button
             color="primary"
@@ -268,7 +267,7 @@ const Header = (props) => {
               setMenuSelectedIndex(false);
             }}
           >
-            sign up
+            Sign Up
           </Button>
         </>
       )}
@@ -441,7 +440,11 @@ const Header = (props) => {
               className={classes.logoButton}
             >
               <img src={logo} alt="company logo" className={classes.logo} />
-              <Typography variant="h6" component="h1">
+              <Typography
+                variant="h6"
+                component="h1"
+                className={classes.logoText}
+              >
                 <Typography variant="h6" component="span" color="primary">
                   lfg.
                 </Typography>

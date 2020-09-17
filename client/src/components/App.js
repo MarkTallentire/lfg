@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./ui/Header";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import Footer from "./ui/Footer";
 import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
@@ -16,6 +16,19 @@ function App() {
   const [tabValue, setTabValue] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
+  const [onAuthPage, setOnAuthPage] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+    if (location.pathname === "/login" || location.pathname === "/register") {
+      setOnAuthPage(true);
+    } else {
+      setOnAuthPage(false);
+    }
+  }, [location]);
+
   useEffect(() => {
     if (!currentUser || currentUser === true) {
       if (localStorage.getItem("jwt")) {
@@ -28,14 +41,16 @@ function App() {
 
   return (
     <>
-      <Header
-        tabValue={tabValue}
-        setTabValue={setTabValue}
-        menuSelectedIndex={menuSelectedIndex}
-        setMenuSelectedIndex={setMenuSelectedIndex}
-        currentUser={currentUser}
-        setCurrentUser={setCurrentUser}
-      />
+      {!onAuthPage && (
+        <Header
+          tabValue={tabValue}
+          setTabValue={setTabValue}
+          menuSelectedIndex={menuSelectedIndex}
+          setMenuSelectedIndex={setMenuSelectedIndex}
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+      )}
       <Switch>
         <Route
           exact
@@ -103,12 +118,14 @@ function App() {
           )}
         ></Route>
       </Switch>
-      <Footer
-        tabValue={tabValue}
-        setTabValue={setTabValue}
-        menuSelectedIndex={menuSelectedIndex}
-        setMenuSelectedIndex={setMenuSelectedIndex}
-      />
+      {!onAuthPage && (
+        <Footer
+          tabValue={tabValue}
+          setTabValue={setTabValue}
+          menuSelectedIndex={menuSelectedIndex}
+          setMenuSelectedIndex={setMenuSelectedIndex}
+        />
+      )}
     </>
   );
 }

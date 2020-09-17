@@ -60,6 +60,24 @@ namespace Data.Migrations
                     b.ToTable("Game");
                 });
 
+            modelBuilder.Entity("Domain.Classes.GroupFinder.GroupFinder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("QueueType")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupFinder");
+                });
+
             modelBuilder.Entity("Domain.Classes.Groups.Group", b =>
                 {
                     b.Property<int>("Id")
@@ -127,6 +145,9 @@ namespace Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<int?>("GroupFinderId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("InPerson")
                         .HasColumnType("boolean");
 
@@ -173,6 +194,8 @@ namespace Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupFinderId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -379,6 +402,13 @@ namespace Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Classes.User", b =>
+                {
+                    b.HasOne("Domain.Classes.GroupFinder.GroupFinder", null)
+                        .WithMany("Queue")
+                        .HasForeignKey("GroupFinderId");
                 });
 
             modelBuilder.Entity("Domain.Classes.UserGame", b =>

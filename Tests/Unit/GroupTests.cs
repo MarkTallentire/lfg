@@ -73,5 +73,7 @@ namespace Tests.Unit
             Assert.Equal(2, group.MinPlayers);
             Assert.Equal(6, group.MaxPlayers);
         }
+
+}
     }
 }
