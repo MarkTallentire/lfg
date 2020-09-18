@@ -47,28 +47,26 @@ const RegisterPage = ({ setCurrentUser, currentUser }) => {
 
   const innerContent = (
     <>
-      <Paper square className={classes.paper}>
-        <Grid item>
-          <Link to="/" className={classes.link}>
-            <img src={logo} alt="company logo" className={classes.logo} />
-            <Typography variant="h6" component="h1" className={classes.header}>
-              <Typography variant="h6" component="span" color="primary">
-                lfg.
-              </Typography>
-              games
+      <Grid item>
+        <Link to="/" className={classes.link}>
+          <img src={logo} alt="company logo" className={classes.logo} />
+          <Typography variant="h6" component="h1" className={classes.header}>
+            <Typography variant="h6" component="span" color="primary">
+              lfg.
             </Typography>
-          </Link>
-          <Typography variant="body1">Sign Up</Typography>
-        </Grid>
-        <Grid item>
-          <RegistrationForm setCurrentUser={setCurrentUser} />
-        </Grid>
-      </Paper>
+            games
+          </Typography>
+        </Link>
+        <Typography variant="body1">Sign Up</Typography>
+      </Grid>
+      <Grid item>
+        <RegistrationForm setCurrentUser={setCurrentUser} />
+      </Grid>
     </>
   );
 
   return (
-    <Container fixed maxWidth="md">
+    <Container fixed maxWidth="sm">
       <Grid
         container
         spacing={0}

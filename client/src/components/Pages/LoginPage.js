@@ -77,7 +77,7 @@ const LoginPage = ({ setCurrentUser, currentUser }) => {
   }
 
   return (
-    <Container fixed maxWidth="md">
+    <Container fixed maxWidth="sm">
       <Grid
         container
         spacing={0}
@@ -85,83 +85,77 @@ const LoginPage = ({ setCurrentUser, currentUser }) => {
         justify="center"
         className={classes.container}
       >
-        <Paper square className={classes.paper}>
-          <Grid item>
-            <Link to="/" className={classes.link}>
-              <img src={logo} alt="company logo" className={classes.logo} />
-              <Typography
-                variant="h6"
-                component="h1"
-                className={classes.header}
-              >
-                <Typography variant="h6" component="span" color="primary">
-                  lfg.
-                </Typography>
-                games
+        <Grid item>
+          <Link to="/" className={classes.link}>
+            <img src={logo} alt="company logo" className={classes.logo} />
+            <Typography variant="h6" component="h1" className={classes.header}>
+              <Typography variant="h6" component="span" color="primary">
+                lfg.
               </Typography>
-            </Link>
-            <Typography variant="body1">Login</Typography>
-          </Grid>
-          <Grid item>
-            <form onSubmit={handleSubmit(onSubmit)}>
+              games
+            </Typography>
+          </Link>
+          <Typography variant="body1">Login</Typography>
+        </Grid>
+        <Grid item>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid item>
+              <TextField
+                label="Username"
+                name="username"
+                inputRef={register}
+                fullWidth
+                variant="outlined"
+                className={classes.formInput}
+                size="small"
+                helperText={errors.username && errors.username.message}
+                error={Boolean(errors.username)}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Password"
+                name="password"
+                inputRef={register}
+                fullWidth
+                variant="outlined"
+                className={classes.formInput}
+                size="small"
+                type="password"
+                helperText={errors.password && errors.password.message}
+                error={Boolean(errors.password)}
+              />
+            </Grid>
+            <Grid item>
+              <Typography variant="body2" className={classes.error}>
+                {errors.form && errors.form.message}
+              </Typography>
+            </Grid>
+            <Grid item container spacing={2} alignItems="center">
               <Grid item>
-                <TextField
-                  label="Username"
-                  name="username"
-                  inputRef={register}
-                  fullWidth
-                  variant="outlined"
-                  className={classes.formInput}
-                  size="small"
-                  helperText={errors.username && errors.username.message}
-                  error={Boolean(errors.username)}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label="Password"
-                  name="password"
-                  inputRef={register}
-                  fullWidth
-                  variant="outlined"
-                  className={classes.formInput}
-                  size="small"
-                  type="password"
-                  helperText={errors.password && errors.password.message}
-                  error={Boolean(errors.password)}
-                />
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" className={classes.error}>
-                  {errors.form && errors.form.message}
+                <Typography
+                  variant="body2"
+                  to="/register"
+                  component={Link}
+                  className={classes.link}
+                  color="primary"
+                >
+                  Register Instead
                 </Typography>
               </Grid>
-              <Grid item container spacing={2} alignItems="center">
-                <Grid item>
-                  <Typography
-                    variant="body2"
-                    to="/register"
-                    component={Link}
-                    className={classes.link}
-                    color="primary"
-                  >
-                    Register Instead
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    disabled={formState.isSubmitting || !formState.isDirty}
-                  >
-                    Login
-                  </Button>
-                </Grid>
+              <Grid item>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={formState.isSubmitting || !formState.isDirty}
+                >
+                  Login
+                </Button>
               </Grid>
-            </form>
-          </Grid>
-        </Paper>
+            </Grid>
+          </form>
+        </Grid>
       </Grid>
     </Container>
   );
