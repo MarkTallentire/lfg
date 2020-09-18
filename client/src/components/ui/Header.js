@@ -43,7 +43,7 @@ function ElevationScroll(props) {
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.modal + 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.paper,
   },
   toolbarMargin: { ...theme.mixins.toolbar },
   logoButton: {
@@ -167,11 +167,6 @@ const Header = (props) => {
     ];
   } else {
     routes = [
-      {
-        name: "My Groups",
-        href: "/mygroups",
-        icon: <GroupIcon />,
-      },
       {
         name: "LFG",
         href: "/lfg",

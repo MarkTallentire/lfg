@@ -6,10 +6,10 @@ import LandingPage from "./Pages/LandingPage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
 import ApiClient from "../ApiClient";
-import MyGroups from "./Pages/MyGroups";
 import CreateGroup from "./Pages/CreateGroup";
 import UserSearch from "./Pages/UserSearch";
 import LFG from "./Pages/LFG";
+import Profile from "./Pages/Profile";
 
 function App() {
   const [menuSelectedIndex, setMenuSelectedIndex] = useState(0);
@@ -59,7 +59,6 @@ function App() {
             <LandingPage {...props} currentUser={currentUser} />
           )}
         ></Route>
-        <Route exact path="/mygroups" component={MyGroups}></Route>
         <Route exact path="/creategroup" component={CreateGroup} />
         <Route
           exact
@@ -117,6 +116,7 @@ function App() {
             />
           )}
         ></Route>
+        <Route exact path="/profile/:id" component={Profile} />
       </Switch>
       {!onAuthPage && (
         <Footer

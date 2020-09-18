@@ -1,21 +1,28 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
+import { purple } from "@material-ui/core/colors";
 
-const purple = "rgb(207,146,255)";
 const breakpoints = createBreakpoints({});
 
 export default createMuiTheme({
   palette: {
     common: {
-      purple: `${purple}`,
+      purple: purple[300],
       transparent: "rgba(0,0,0,0)",
     },
     type: "dark",
     primary: {
-      main: `${purple}`,
+      main: purple[300],
     },
     secondary: {
-      main: `${purple}`,
+      main: purple[300],
+    },
+    background: {
+      default: "#1c2025",
+      paper: "#282C34",
+    },
+    titleBar: {
+      main: "#0d47a1",
     },
   },
   typography: {
