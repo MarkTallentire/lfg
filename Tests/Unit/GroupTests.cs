@@ -65,10 +65,9 @@ namespace Tests.Unit
                 new Point(1.2f, 1f));
             var group = new Group("The Murderous Crows", "Unit test group", GroupPrivacyLevel.Matchmaking, user, 2, 6);
 
-            Assert.True(group.Members.Select(x => x.User).Contains(user));
+            Assert.Contains(user, group.Members.Select(x => x.User));
             Assert.NotNull(group.Name);
             Assert.NotNull(group.Description);
-            Assert.NotNull(group.PrivacyLevel);
             Assert.NotEmpty(group.Members);
             Assert.Equal(2, group.MinPlayers);
             Assert.Equal(6, group.MaxPlayers);
@@ -76,4 +75,3 @@ namespace Tests.Unit
 
 }
     }
-}
