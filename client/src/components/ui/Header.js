@@ -19,14 +19,11 @@ import ListItem from "@material-ui/core/ListItem";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import InfoIcon from "@material-ui/icons/Info";
-import StorefrontIcon from "@material-ui/icons/Storefront";
-import GroupWorkIcon from "@material-ui/icons/GroupWork";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 import { Link } from "react-router-dom";
 import logo from "../../assets/cute.svg";
 import { ListItemIcon, ListItemText, Avatar } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import GroupIcon from "@material-ui/icons/Group";
 
 function ElevationScroll(props) {
   const { children } = props;

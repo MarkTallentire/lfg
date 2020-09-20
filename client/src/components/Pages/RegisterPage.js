@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/styles";
 import logo from "../../assets/cute.svg";
 import RegistrationForm from "../Features/RegistrationForm";
 import { Redirect } from "react-router-dom";
-import { Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({

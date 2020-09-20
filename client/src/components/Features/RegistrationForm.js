@@ -21,7 +21,6 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 
 import axios from "../../ApiClient";
-import GooglePlacesLocationSearch from "../Global/GooglePlacesLocationSearch";
 
 const useStyle = makeStyles((theme) => ({
   logo: {
@@ -87,7 +86,6 @@ const RegistrationForm = ({ setCurrentUser }) => {
     register,
     handleSubmit,
     errors,
-    setValue,
     setError,
     formState,
   } = useForm({

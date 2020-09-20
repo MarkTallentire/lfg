@@ -3,11 +3,10 @@ import {
   Grid,
   Paper,
   Typography,
-  FormControlLabel,
-  Checkbox,
   makeStyles,
   Button,
-  IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import crown from "../../../assets/crown.svg";
@@ -48,7 +47,8 @@ const groups = [
 
 const UserGroups = () => {
   const classes = useStyles();
-
+  const theme = useTheme();
+  const media = useMediaQuery(theme.breakpoints.down("xs"));
   return (
     <Grid container spacing={2}>
       <Grid item container justify="flex-end">
@@ -67,13 +67,13 @@ const UserGroups = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container container direction="column" spacing={2}>
+        <Grid container direction="column" spacing={2}>
           {groups.map((group) => (
             <Grid item key={group.id}>
               <Paper className={classes.paper}>
                 <Grid container>
                   <Grid container alignItems="center">
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={8}>
                       <Grid container direction="column">
                         <Grid item>
                           <Typography variant="h5">{group.name}</Typography>
@@ -100,12 +100,12 @@ const UserGroups = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={12} sm={4}>
                       <Grid
                         container
-                        direction="row"
+                        direction={media ? "row" : "column"}
                         spacing={1}
-                        alignItems="center"
+                        alignItems="flex-end"
                       >
                         {group.canInvite && (
                           <Grid item>
