@@ -6,6 +6,10 @@ import {
   Tabs,
   Typography,
 } from "@material-ui/core";
+import GroupIcon from "@material-ui/icons/Group";
+import PersonIcon from "@material-ui/icons/Person";
+import GamesIcon from "@material-ui/icons/Games";
+import SettingsIcon from "@material-ui/icons/Settings";
 import React, { useState } from "react";
 import AccountSettings from "./AccountSettings";
 import UserGames from "./UserGames";
@@ -34,8 +38,7 @@ const Profile = () => {
   return (
     <>
       <Container maxWidth="md" className={classes.container}>
-        <Typography variant="h5">Profile</Typography>
-        <Grid container>
+        <Grid container justify="center">
           <Tabs
             variant="scrollable"
             scrollButtons="auto"
@@ -44,10 +47,26 @@ const Profile = () => {
             value={tabIndex}
             className={classes.tabs}
           >
-            <Tab label="Profile" onClick={() => setTabIndex(0)}></Tab>
-            <Tab label="Groups" onClick={() => setTabIndex(1)}></Tab>
-            <Tab label="Games" onClick={() => setTabIndex(2)}></Tab>
-            <Tab label="Settings" onClick={() => setTabIndex(3)}></Tab>
+            <Tab
+              label="Profile"
+              icon={<PersonIcon />}
+              onClick={() => setTabIndex(0)}
+            ></Tab>
+            <Tab
+              label="Groups"
+              icon={<GroupIcon />}
+              onClick={() => setTabIndex(1)}
+            ></Tab>
+            <Tab
+              label="Games"
+              icon={<GamesIcon />}
+              onClick={() => setTabIndex(2)}
+            ></Tab>
+            <Tab
+              label="Settings"
+              icon={<SettingsIcon />}
+              onClick={() => setTabIndex(3)}
+            ></Tab>
           </Tabs>
         </Grid>
         {renderTab()}
