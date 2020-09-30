@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import AccountSettings from "./AccountSettings";
+import UserGames from "./UserGames";
 import UserGroups from "./UserGroups";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(2);
 
   const renderTab = () => {
-    if (tabIndex === 5) return <AccountSettings />;
+    if (tabIndex === 3) return <AccountSettings />;
     else if (tabIndex === 1) return <UserGroups />;
+    else if (tabIndex === 2) return <UserGames />;
   };
 
   return (
@@ -45,9 +47,7 @@ const Profile = () => {
             <Tab label="Profile" onClick={() => setTabIndex(0)}></Tab>
             <Tab label="Groups" onClick={() => setTabIndex(1)}></Tab>
             <Tab label="Games" onClick={() => setTabIndex(2)}></Tab>
-            <Tab label="Ratings" onClick={() => setTabIndex(3)}></Tab>
-            <Tab label="Friends" onClick={() => setTabIndex(4)}></Tab>
-            <Tab label="Settings" onClick={() => setTabIndex(5)}></Tab>
+            <Tab label="Settings" onClick={() => setTabIndex(3)}></Tab>
           </Tabs>
         </Grid>
         {renderTab()}

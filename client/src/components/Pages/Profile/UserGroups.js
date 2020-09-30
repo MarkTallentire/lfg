@@ -92,9 +92,9 @@ const UserGroups = () => {
 
                           <Typography variant="subtitle2">
                             {group.games.map((game, i) => (
-                              <>
+                              <div key={i}>
                                 {game} {i !== group.games.length - 1 && " | "}
-                              </>
+                              </div>
                             ))}
                           </Typography>
                         </Grid>

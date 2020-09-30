@@ -231,7 +231,7 @@ const Header = (props) => {
           alt={props.currentUser.username}
           className={classes.avatar}
           component={Link}
-          to="/profile"
+          to={`/profile/${props.currentUser.id}`}
         />
       ) : (
         <>
@@ -341,7 +341,7 @@ const Header = (props) => {
               divider
               button
               component={Link}
-              to="/profile"
+              to={`/profile/${props.currentUser.id}`}
               onClick={() => {
                 setTabValue(false);
                 setDrawerOpen(false);
