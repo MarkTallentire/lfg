@@ -1,11 +1,4 @@
-import {
-  Container,
-  Grid,
-  makeStyles,
-  Tab,
-  Tabs,
-  Typography,
-} from "@material-ui/core";
+import { Container, Grid, makeStyles, Tab, Tabs } from "@material-ui/core";
 import GroupIcon from "@material-ui/icons/Group";
 import PersonIcon from "@material-ui/icons/Person";
 import GamesIcon from "@material-ui/icons/Games";
@@ -25,15 +18,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = () => {
+const Profile = (props) => {
   const classes = useStyles();
   const [tabIndex, setTabIndex] = useState(2);
 
   const renderTab = () => {
-    if (tabIndex === 3) return <AccountSettings />;
+    if (tabIndex === 3)
+      return <AccountSettings currentUser={props.currentUser} />;
     else if (tabIndex === 1) return <UserGroups />;
     else if (tabIndex === 2) return <UserGames />;
   };
+
+  if (!props.currentUser) {
+    return null;
+  }
 
   return (
     <>

@@ -117,7 +117,11 @@ function App() {
               />
             )}
           ></Route>
-          <Route exact path="/profile/:id" component={Profile} />
+          <Route
+            exact
+            path="/profile/:id"
+            render={(props) => <Profile currentUser={currentUser} />}
+          />
         </Switch>
       </main>
       {!onAuthPage && (

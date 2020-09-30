@@ -8,6 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import crown from "../../../assets/crown.svg";
 
@@ -23,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   },
   sortButton: {
     marginRight: "1em",
+  },
+  groupName: {
+    color: theme.palette.primary.main,
+    textDecoration: "none",
   },
 }));
 
@@ -76,7 +81,14 @@ const UserGroups = () => {
                     <Grid item xs={12} sm={8}>
                       <Grid container direction="column">
                         <Grid item>
-                          <Typography variant="h5">{group.name}</Typography>
+                          <Typography
+                            variant="h5"
+                            component={Link}
+                            to={`/groups/${group.id}`}
+                            className={classes.groupName}
+                          >
+                            {group.name}
+                          </Typography>
                           <Grid container alignItems="center">
                             {group.isLeader && (
                               <img
@@ -91,11 +103,18 @@ const UserGroups = () => {
                           </Grid>
 
                           <Typography variant="subtitle2">
-                            {group.games.map((game, i) => (
-                              <div key={i}>
-                                {game} {i !== group.games.length - 1 && " | "}
-                              </div>
-                            ))}
+                            <Grid container>
+                              {group.games.map((game, i) => (
+                                <Typography
+                                  key={i}
+                                  component="span"
+                                  variant="subtitle2"
+                                >
+                                  {game}
+                                  {i !== group.games.length - 1 && "||"}
+                                </Typography>
+                              ))}
+                            </Grid>
                           </Typography>
                         </Grid>
                       </Grid>

@@ -1,5 +1,7 @@
 import { Button, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import { Link } from "react-router-dom";
+
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
   sortButton: {
     marginRight: "1em",
+  },
+  gameName: {
+    color: theme.palette.primary.main,
+    textDecoration: "none",
   },
 }));
 
@@ -34,6 +40,15 @@ const games = [
     willingToPlayWith: "Beginner",
     ownsAllComponents: true,
     gameMaster: true,
+    activelyLooking: true,
+  },
+  {
+    id: 1,
+    name: "Gloomhaven",
+    skillLevel: "Beginner",
+    willingToPlayWith: "Beginner",
+    ownsAllComponents: true,
+    gameMaster: false,
     activelyLooking: true,
   },
 ];
@@ -63,7 +78,14 @@ const UserGames = () => {
                 <Grid item>
                   <Grid container direction="column">
                     <Grid item>
-                      <Typography variant="h5">{game.name}</Typography>
+                      <Typography
+                        variant="h5"
+                        component={Link}
+                        to={`/game/${game.id}`}
+                        className={classes.gameName}
+                      >
+                        {game.name}
+                      </Typography>
                     </Grid>
 
                     <Grid item>
